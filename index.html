@@ -7,90 +7,12 @@
 <title>ALIFLAM FORM V3</title>
 
 <style>
-
-body{
-font-family:Arial,sans-serif;
-background:#f5f5f5;
-padding:30px;
-margin:0;
-}
-
-.card{
-max-width:600px;
-margin:auto;
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-
-h1{
-text-align:center;
-margin-bottom:20px;
-}
-
-input{
-width:100%;
-padding:15px;
-font-size:18px;
-box-sizing:border-box;
-}
-
-button{
-width:100%;
-margin-top:15px;
-padding:15px;
-font-size:18px;
-background:#e11d48;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-}
-
-button:hover{
-opacity:.9;
-}
-
-</style>
-
-</head>
 <body>
 
-<div class="card">
+<h1>TES ALIFLAM</h1>
 
-<h1>FORM KONSULTASI ALIFLAM</h1>
-
-<input
-type="text"
-placeholder="Masukkan Nomor Pesanan">
-
-<button onclick="cekPesanan()">
-CEK PESANAN
+<button onclick="alert('BERHASIL')">
+TEST
 </button>
 
-<div id="hasil"></div>
-
-</div>
-
-<script>
-
-async function cekPesanan(){
-
-const noPesanan =
-document.querySelector("input").value.trim();
-
-if(!noPesanan){
-alert("Masukkan nomor pesanan");
-return;
-}
-
-document.getElementById("hasil").innerHTML =
-"⏳ Sedang mencari data...";
-
-}
-
-</script>
-
-</body>
-</html>
+</body></html>
