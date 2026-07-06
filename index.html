@@ -98,8 +98,43 @@ const data = await response.json();
 
 if(!data.success){
 
-document.getElementById("hasil").innerHTML =
+if(
+data.message ===
+"SEMUA_SUDAH_ISI"
+){
+
+document.getElementById(
+"hasil"
+).innerHTML = `
+
+<div style="
+padding:15px;
+background:#fef2f2;
+border-radius:8px;
+color:#b91c1c;
+">
+
+<b>
+Maaf, pesanan ini sudah mengisi form.
+</b>
+
+<br><br>
+
+Jika mau ada perubahan,
+silahkan hubungi kami di WA.
+
+</div>
+
+`;
+
+}else{
+
+document.getElementById(
+"hasil"
+).innerHTML =
 "❌ Nomor pesanan tidak ditemukan";
+
+}
 
 return;
 
@@ -112,7 +147,10 @@ window.noPesananAktif =
 noPesanan;
 
 window.skuAktif =
-data.items[0].sku;
+"";
+
+window.rowAktif =
+"";
 
 let html = `
 <div style="
@@ -125,21 +163,24 @@ border-radius:8px;
 <b>USERNAME :</b><br>
 ${data.username}
 <br><br>
-
-<b>RINCIAN PESANAN :</b><br>
 `;
 
-data.items.forEach(item => {
+if(
+data.items.length === 1
+){
+
+window.skuAktif =
+data.items[0].sku;
+
+window.rowAktif =
+data.items[0].rowIndex;
 
 html += `
-• ${item.sku} (${item.qty})<br>
-`;
 
-});
+<b>SKU :</b><br>
 
-html += `
-
-</div>
+${data.items[0].sku}
+(${data.items[0].qty})
 
 <hr style="margin:20px 0;">
 
@@ -170,7 +211,62 @@ style="margin-top:20px;">
 
 `;
 
-document.getElementById("hasil").innerHTML =
+}else{
+
+html += `
+
+<b>
+PILIH PESANAN YANG AKAN DIISI :
+</b>
+
+<br><br>
+
+`;
+
+data.items.forEach(item => {
+
+html += `
+
+<label>
+
+<input
+type="radio"
+name="pilihSku"
+value="${item.rowIndex}"
+data-sku="${item.sku}">
+
+${item.sku}
+(${item.qty})
+
+</label>
+
+<br><br>
+
+`;
+
+});
+
+html += `
+
+<button
+type="button"
+onclick="lanjutPilihSku()">
+
+LANJUTKAN
+
+</button>
+
+`;
+
+}
+
+html += `
+</div>
+`;
+
+document.getElementById(
+"hasil"
+).innerHTML =
 html;
 
 }catch(err){
@@ -293,6 +389,87 @@ e.target.value === "CANVA"
 }
 
 });
+
+function lanjutPilihSku(){
+
+const radio =
+
+document.querySelector(
+'input[name="pilihSku"]:checked'
+);
+
+if(!radio){
+
+alert(
+"Pilih pesanan terlebih dahulu"
+);
+
+return;
+
+}
+
+window.rowAktif =
+radio.value;
+
+window.skuAktif =
+radio.dataset.sku;
+
+const areaFormLama =
+document.getElementById(
+"areaPilihStatus"
+);
+
+if(areaFormLama){
+areaFormLama.remove();
+}
+
+document.getElementById(
+"hasil"
+).insertAdjacentHTML(
+"beforeend",
+`
+<div id="areaPilihStatus">
+
+<hr style="margin:20px 0;">
+
+<b>
+PESANAN YANG DIPILIH :
+</b>
+
+<br><br>
+
+${window.skuAktif}
+
+<br><br>
+
+<h3>STATUS DESAIN</h3>
+
+<label>
+<input
+type="radio"
+name="statusDesain"
+value="BELUM">
+ BELUM PUNYA DESAIN
+</label>
+
+<br><br>
+
+<label>
+<input
+type="radio"
+name="statusDesain"
+value="SUDAH">
+ SUDAH PUNYA DESAIN
+</label>
+
+<div
+id="areaForm"
+style="margin-top:20px;">
+</div>
+
+</div>
+`
+);
 
 function tampilkanFormDesain(){
 
@@ -500,6 +677,9 @@ const data = {
 
 action:
 "simpanFormDesain",
+
+rowIndex:
+window.rowAktif || "",
 
 username:
 window.usernameAktif || "",
@@ -781,6 +961,9 @@ const data = {
 
 action:
 "simpanFormCekFile",
+
+rowIndex:
+window.rowAktif || "",
 
 username:
 window.usernameAktif || "",
