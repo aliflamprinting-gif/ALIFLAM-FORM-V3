@@ -187,11 +187,9 @@ document.addEventListener(
 function(e){
 
 if(
-e.target.name !==
+e.target.name ===
 "statusDesain"
 ){
-return;
-}
 
 if(
 e.target.value ===
@@ -206,6 +204,52 @@ tampilkanFormCekFile();
 
 }
 
+}
+
+if(
+e.target.id ===
+"jenisCetak"
+){
+
+const box =
+document.getElementById(
+"jenisCetakLainnya"
+);
+
+if(box){
+
+box.style.display =
+e.target.value ===
+"LAINNYA"
+? "block"
+: "none";
+
+}
+
+}
+
+if(
+e.target.id ===
+"warnaKonsep"
+){
+
+const box =
+document.getElementById(
+"warnaLainnya"
+);
+
+if(box){
+
+box.style.display =
+e.target.value ===
+"LAINNYA"
+? "block"
+: "none";
+
+}
+
+}
+
 });
 
 function tampilkanFormDesain(){
@@ -216,68 +260,18 @@ document.getElementById(
 
 <div style="
 margin-top:20px;
-padding:20px;
-background:#111827;
-border-radius:20px;
-color:white;
-">
-
-<h2 style="
-text-align:center;
-color:#ffb347;
-margin-bottom:25px;
-">
-FORM BELUM PUNYA DESAIN
-</h2>
-
-<div style="
-background:#0d131d;
 padding:15px;
-border-radius:15px;
-margin-bottom:25px;
+background:#f8fafc;
+border-radius:8px;
 ">
 
-<div style="margin-bottom:15px;">
-<b style="color:#9ca3af;">
-👤 USERNAME
-</b>
-<br>
-${window.usernameAktif || "-"}
-</div>
-
-<div style="margin-bottom:15px;">
-<b style="color:#9ca3af;">
-📦 NOMOR PESANAN
-</b>
-<br>
-${window.noPesananAktif || "-"}
-</div>
-
-<div>
-<b style="color:#9ca3af;">
-🏷️ SKU
-</b>
-<br>
-${window.skuAktif || "-"}
-</div>
-
-</div>
-
-<h3 style="color:#ffb347;">
-DETAIL PESANAN
+<h3>
+FORM BELUM PUNYA DESAIN
 </h3>
 
 <label>JENIS CETAK</label>
 
-<select
-id="jenisCetak"
-onchange="toggleJenisCetakLainnya()"
-style="
-width:100%;
-height:50px;
-margin-top:8px;
-margin-bottom:15px;
-">
+<select id="jenisCetak">
 
 <option value="">
 Pilih Jenis Cetak
@@ -300,38 +294,26 @@ JENIS CETAK LAINNYA
 </select>
 
 <input
-type="text"
 id="jenisCetakLainnya"
+type="text"
 placeholder="Tulis jenis cetak lainnya"
-style="
-display:none;
-width:100%;
-padding:12px;
-margin-bottom:15px;
-box-sizing:border-box;
-">
+style="display:none;">
+
+<br><br>
 
 <label>UKURAN</label>
 
 <input
 id="ukuran"
 type="text"
-placeholder="Contoh : 80x120 CM">
+placeholder="Contoh : 100x50 CM">
 
-<hr style="margin:25px 0;">
+<br><br>
 
-<h3 style="color:#ffb347;">
-WARNA / TEMA
-</h3>
+<label>WARNA / KONSEP</label>
 
 <select
-id="warnaKonsep"
-onchange="toggleWarnaLainnya()"
-style="
-width:100%;
-height:50px;
-margin-bottom:15px;
-">
+id="warnaKonsep">
 
 <option value="">
 Pilih Warna
@@ -355,107 +337,108 @@ WARNA LAINNYA
 </select>
 
 <input
-type="text"
 id="warnaLainnya"
+type="text"
 placeholder="Tulis warna lainnya"
-style="
-display:none;
-width:100%;
-padding:12px;
-margin-bottom:15px;
-box-sizing:border-box;
-">
+style="display:none;">
 
-<hr style="margin:25px 0;">
+<br><br>
 
-<h3 style="color:#ffb347;">
-MATERI DESAIN
-</h3>
-
-<label>
-JUDUL / NAMA USAHA / BRAND
-</label>
+<label>JUDUL / BRAND</label>
 
 <textarea
 id="judulBrand"
+placeholder="Contoh : WARUNG KOPI ALIFLAM / KEDAI BERKAH ALIFLAM"
 style="
 width:100%;
 height:100px;
+padding:12px;
+box-sizing:border-box;
 "></textarea>
 
 <br><br>
 
-<label>
-ISI TULISAN
-</label>
+<label>ISI MATERI</label>
 
 <textarea
 id="isiMateri"
+placeholder="Contoh :
+
+Bakso Pak Budi
+
+Melayani :
+- Bakso Urat
+- Bakso Jumbo
+- Mie Ayam
+
+Jl. Mawar No.123
+0815xxxxxxx"
 style="
 width:100%;
-height:220px;
+height:180px;
+padding:12px;
+box-sizing:border-box;
 "></textarea>
 
-<hr style="margin:25px 0;">
+<br><br>
 
-<h3 style="color:#ffb347;">
-MODE GAMBAR
-</h3>
+<label>OPSI GAMBAR</label>
 
 <select
 id="opsiGambar"
 style="
 width:100%;
-height:50px;
+padding:12px;
 ">
 
 <option value="">
-Pilih Mode
+Pilih Opsi
 </option>
 
 <option value="WHATSAPP">
-Saya Akan Kirim ke WhatsApp
+Kirim via WhatsApp
 </option>
 
 <option value="DESIGNER">
-Serahkan Kepada Designer
+Serahkan ke Designer
 </option>
 
 <option value="TANPA_GAMBAR">
-Tidak Usah Pakai Gambar
+Tanpa Gambar
 </option>
 
 </select>
 
-<hr style="margin:25px 0;">
+<br><br>
 
-<h3 style="color:#ffb347;">
-CATATAN
-</h3>
+<label>CATATAN</label>
 
 <textarea
 id="catatan"
+placeholder="Contoh :
+• Dominan warna merah hitam
+• Tambahkan logo yang saya kirim
+• Cantumkan sosial media IG, FB atau lainnya"
 style="
 width:100%;
 height:120px;
+padding:12px;
+box-sizing:border-box;
 "></textarea>
 
-<hr style="margin:25px 0;">
+<br><br>
 
-<h3 style="color:#ffb347;">
-KONTAK
-</h3>
+<label>NO WHATSAPP</label>
 
 <input
 id="noWa"
 type="text"
 placeholder="08xxxxxxxxxx">
 
+<br><br>
+
 <button
-onclick="testKirimForm()"
-style="
-margin-top:20px;
-">
+onclick="testKirimForm()">
 
 KIRIM FORM DESAIN
 
@@ -466,6 +449,8 @@ KIRIM FORM DESAIN
 `;
 
 }
+
+
 
 async function testKirimForm(){
 
@@ -484,6 +469,19 @@ sku:
 window.skuAktif || "",
 
 jenisCetak:
+
+document.getElementById(
+"jenisCetak"
+).value === "LAINNYA"
+
+?
+
+document.getElementById(
+"jenisCetakLainnya"
+).value
+
+:
+
 document.getElementById(
 "jenisCetak"
 ).value,
@@ -499,6 +497,19 @@ document.getElementById(
 ).value,
 
 warnaKonsep:
+
+document.getElementById(
+"warnaKonsep"
+).value === "LAINNYA"
+
+?
+
+document.getElementById(
+"warnaLainnya"
+).value
+
+:
+
 document.getElementById(
 "warnaKonsep"
 ).value,
@@ -606,38 +617,6 @@ Form cek file akan tampil disini
 </div>
 
 `;
-
-}
-
-function toggleJenisCetakLainnya(){
-
-const val =
-document.getElementById(
-"jenisCetak"
-).value;
-
-document.getElementById(
-"jenisCetakLainnya"
-).style.display =
-val === "LAINNYA"
-? "block"
-: "none";
-
-}
-
-function toggleWarnaLainnya(){
-
-const val =
-document.getElementById(
-"warnaKonsep"
-).value;
-
-document.getElementById(
-"warnaLainnya"
-).style.display =
-val === "LAINNYA"
-? "block"
-: "none";
 
 }
 
