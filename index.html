@@ -105,6 +105,15 @@ return;
 
 }
 
+window.usernameAktif =
+data.username;
+
+window.noPesananAktif =
+noPesanan;
+
+window.skuAktif =
+data.items[0].sku;
+
 let html = `
 <div style="
 margin-top:15px;
@@ -286,9 +295,21 @@ KIRIM FORM DESAIN
 
 }
 
-function testKirimForm(){
+async function testKirimForm(){
 
 const data = {
+
+action:
+"simpanFormDesain",
+
+username:
+window.usernameAktif || "",
+
+noPesanan:
+window.noPesananAktif || "",
+
+sku:
+window.skuAktif || "",
 
 jenisCetak:
 document.getElementById(
@@ -303,17 +324,66 @@ document.getElementById(
 judulBrand:
 document.getElementById(
 "judulBrand"
-).value
+).value,
+
+warnaKonsep:"",
+isiMateri:"",
+opsiGambar:"",
+catatan:"",
+noWa:""
 
 };
 
-alert(
-JSON.stringify(
-data,
-null,
-2
-)
+try{
+
+const response =
+await fetch(
+
+"https://script.google.com/macros/s/AKfycbx9BhdfdgFip0HhQyJ0kM1ZMN5ZlB1cUWZs_pYrl9vCcmUkqvtdszKZebNhoD8jhOJq/exec",
+
+{
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:JSON.stringify(data)
+
+}
+
 );
+
+const hasil =
+await response.json();
+
+console.log(data);
+console.log(hasil);
+
+if(hasil.success){
+
+alert(
+"✅ Form berhasil dikirim\n\nID : "
++ hasil.id
+);
+
+}else{
+
+alert(
+"❌ Gagal menyimpan data"
+);
+
+}
+
+}catch(err){
+
+alert(
+"❌ Error : "
++ err
+);
+
+}
 
 }
 
