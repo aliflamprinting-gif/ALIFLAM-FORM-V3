@@ -88,6 +88,58 @@ return;
 document.getElementById("hasil").innerHTML =
 "⏳ Sedang mencari pesanan...";
 
+try{
+
+const response = await fetch(
+"https://script.google.com/macros/s/AKfycbx9BhdfdgFip0HhQyJ0kM1ZMN5ZlB1cUWZs_pYrl9vCcmUkqvtdszKZebNhoD8jhOJq/exec?action=cekPesanan&noPesanan=" + encodeURIComponent(noPesanan)
+);
+
+const data = await response.json();
+
+if(!data.success){
+
+document.getElementById("hasil").innerHTML =
+"❌ Nomor pesanan tidak ditemukan";
+
+return;
+
+}
+
+let html = `
+<div style="
+margin-top:15px;
+padding:15px;
+background:#f8fafc;
+border-radius:8px;
+">
+
+<b>USERNAME :</b><br>
+${data.username}
+<br><br>
+
+<b>RINCIAN PESANAN :</b><br>
+`;
+
+data.items.forEach(item => {
+
+html += `
+• ${item.sku} (${item.qty})<br>
+`;
+
+});
+
+html += "</div>";
+
+document.getElementById("hasil").innerHTML =
+html;
+
+}catch(err){
+
+document.getElementById("hasil").innerHTML =
+"❌ Gagal menghubungi server";
+
+}
+
 }
 
 </script>
