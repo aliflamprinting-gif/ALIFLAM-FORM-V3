@@ -698,6 +698,94 @@ KIRIM FORM DESAIN
 
 async function testKirimForm(){
 
+const jenisCetak =
+document.getElementById(
+"jenisCetak"
+).value === "LAINNYA"
+?
+document.getElementById(
+"jenisCetakLainnya"
+).value.trim()
+:
+document.getElementById(
+"jenisCetak"
+).value.trim();
+
+const ukuran =
+document.getElementById(
+"ukuran"
+).value.trim();
+
+const warnaKonsep =
+document.getElementById(
+"warnaKonsep"
+).value === "LAINNYA"
+?
+document.getElementById(
+"warnaLainnya"
+).value.trim()
+:
+document.getElementById(
+"warnaKonsep"
+).value.trim();
+
+const isiMateri =
+document.getElementById(
+"isiMateri"
+).value.trim();
+
+const opsiGambar =
+document.getElementById(
+"opsiGambar"
+).value.trim();
+
+const noWa =
+document.getElementById(
+"noWa"
+).value.trim();
+
+if(!jenisCetak){
+alert(
+"Bagian Jenis Cetak belum diisi, silahkan isi terlebih dahulu."
+);
+return;
+}
+
+if(!ukuran){
+alert(
+"Bagian Ukuran belum diisi, silahkan isi terlebih dahulu."
+);
+return;
+}
+
+if(!warnaKonsep){
+alert(
+"Bagian Warna / Konsep belum diisi, silahkan isi terlebih dahulu."
+);
+return;
+}
+
+if(!isiMateri){
+alert(
+"Bagian Isi Materi belum diisi, silahkan isi terlebih dahulu."
+);
+return;
+}
+
+if(!opsiGambar){
+alert(
+"Bagian Opsi Gambar belum diisi, silahkan isi terlebih dahulu."
+);
+return;
+}
+
+if(!noWa){
+alert(
+"Bagian Nomor WhatsApp belum diisi, silahkan isi terlebih dahulu."
+);
+return;
+}
+
 const data = {
 
 action:
@@ -976,11 +1064,74 @@ KIRIM FORM CEK FILE
 
 async function testKirimFormCekFile(){
 
-const modeFile =
+const jenisCetak =
+document.getElementById(
+"cfJenisCetak"
+).value === "LAINNYA"
+?
+document.getElementById(
+"cfJenisCetakLainnya"
+).value.trim()
+:
+document.getElementById(
+"cfJenisCetak"
+).value.trim();
 
+const ukuran =
+document.getElementById(
+"cfUkuran"
+).value.trim();
+
+if(!jenisCetak){
+alert(
+"Bagian Jenis Cetak belum diisi, silahkan isi terlebih dahulu."
+);
+return;
+}
+
+if(!ukuran){
+alert(
+"Bagian Ukuran belum diisi, silahkan isi terlebih dahulu."
+);
+return;
+}
+
+const modeFile =
 document.querySelector(
 'input[name="modeFile"]:checked'
 );
+
+if(
+modeFile &&
+modeFile.value === "CANVA"
+){
+
+const linkCanva =
+document.getElementById(
+"cfLinkCanva"
+).value.trim();
+
+if(!linkCanva){
+
+alert(
+"Link Canva belum diisi, silahkan isi terlebih dahulu."
+);
+
+return;
+
+}
+
+}
+
+if(!modeFile){
+
+alert(
+"Silahkan pilih metode pengiriman file terlebih dahulu."
+);
+
+return;
+
+}
 
 const data = {
 
