@@ -225,40 +225,16 @@ border-radius:8px;
 FORM BELUM PUNYA DESAIN
 </h3>
 
-<label>
-JENIS CETAK
-</label>
+<label>JENIS CETAK</label>
 
-<select
+<input
 id="jenisCetak"
-style="
-width:100%;
-padding:12px;
-margin-top:8px;
-margin-bottom:15px;
-">
+type="text"
+placeholder="Banner, Sticker, Brosur, dll">
 
-<option value="">
-Pilih Jenis Cetak
-</option>
+<br><br>
 
-<option>
-BANNER / SPANDUK
-</option>
-
-<option>
-STICKER LABEL
-</option>
-
-<option>
-KARTU NAMA
-</option>
-
-</select>
-
-<label>
-UKURAN
-</label>
+<label>UKURAN</label>
 
 <input
 id="ukuran"
@@ -267,18 +243,89 @@ placeholder="Contoh : 100x50 CM">
 
 <br><br>
 
-<label>
-JUDUL / BRAND
-</label>
+<label>WARNA / KONSEP</label>
+
+<input
+id="warnaKonsep"
+type="text"
+placeholder="Contoh : Merah Hitam">
+
+<br><br>
+
+<label>JUDUL / BRAND</label>
 
 <textarea
 id="judulBrand"
+style="
+width:100%;
+height:100px;
+padding:12px;
+box-sizing:border-box;
+"></textarea>
+
+<br><br>
+
+<label>ISI MATERI</label>
+
+<textarea
+id="isiMateri"
+style="
+width:100%;
+height:180px;
+padding:12px;
+box-sizing:border-box;
+"></textarea>
+
+<br><br>
+
+<label>OPSI GAMBAR</label>
+
+<select
+id="opsiGambar"
+style="
+width:100%;
+padding:12px;
+">
+
+<option value="">
+Pilih Opsi
+</option>
+
+<option value="WHATSAPP">
+Kirim via WhatsApp
+</option>
+
+<option value="DESIGNER">
+Serahkan ke Designer
+</option>
+
+<option value="TANPA_GAMBAR">
+Tanpa Gambar
+</option>
+
+</select>
+
+<br><br>
+
+<label>CATATAN</label>
+
+<textarea
+id="catatan"
 style="
 width:100%;
 height:120px;
 padding:12px;
 box-sizing:border-box;
 "></textarea>
+
+<br><br>
+
+<label>NO WHATSAPP</label>
+
+<input
+id="noWa"
+type="text"
+placeholder="08xxxxxxxxxx">
 
 <br><br>
 
@@ -326,11 +373,30 @@ document.getElementById(
 "judulBrand"
 ).value,
 
-warnaKonsep:"",
-isiMateri:"",
-opsiGambar:"",
-catatan:"",
-noWa:""
+warnaKonsep:
+document.getElementById(
+"warnaKonsep"
+).value,
+
+isiMateri:
+document.getElementById(
+"isiMateri"
+).value,
+
+opsiGambar:
+document.getElementById(
+"opsiGambar"
+).value,
+
+catatan:
+document.getElementById(
+"catatan"
+).value,
+
+noWa:
+document.getElementById(
+"noWa"
+).value
 
 };
 
