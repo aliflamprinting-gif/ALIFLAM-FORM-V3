@@ -65,11 +65,32 @@ opacity:.9;
 type="text"
 placeholder="Masukkan Nomor Pesanan">
 
-<button>
+<button onclick="cekPesanan()">
 CEK PESANAN
 </button>
 
+<div id="hasil"></div>
+
 </div>
+
+<script>
+
+async function cekPesanan(){
+
+const noPesanan =
+document.querySelector("input").value.trim();
+
+if(!noPesanan){
+alert("Masukkan nomor pesanan");
+return;
+}
+
+document.getElementById("hasil").innerHTML =
+"⏳ Sedang mencari data...";
+
+}
+
+</script>
 
 </body>
 </html>
