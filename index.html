@@ -115,13 +115,13 @@ color:#b91c1c;
 ">
 
 <b>
-Maaf, pesanan ini sudah mengisi form.
+✔ PESANAN SUDAH PERNAH MENGISI FORM
 </b>
 
 <br><br>
 
-Jika mau ada perubahan,
-silahkan hubungi kami di WA.
+Jika ingin melakukan perubahan,
+silahkan hubungi kami melalui WhatsApp.
 
 </div>
 
@@ -131,8 +131,32 @@ silahkan hubungi kami di WA.
 
 document.getElementById(
 "hasil"
-).innerHTML =
-"❌ Nomor pesanan tidak ditemukan";
+).innerHTML = `
+
+<div style="
+padding:15px;
+background:#fef2f2;
+border-radius:8px;
+color:#b91c1c;
+">
+
+<b>
+✖ NOMOR PESANAN TIDAK DITEMUKAN
+</b>
+
+<br><br>
+
+Pastikan nomor pesanan yang dimasukkan sudah benar.
+
+<br><br>
+
+Jika pesanan baru saja dibuat,
+mohon tunggu sekitar 15–20 menit
+agar data masuk ke sistem kami.
+
+</div>
+
+`;
 
 }
 
