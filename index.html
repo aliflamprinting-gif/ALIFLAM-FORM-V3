@@ -336,6 +336,18 @@ noWa:""
 
 try{
 
+const formData =
+new URLSearchParams();
+
+for(const key in data){
+
+formData.append(
+key,
+data[key]
+);
+
+}
+
 const response =
 await fetch(
 
@@ -343,14 +355,7 @@ await fetch(
 
 {
 method:"POST",
-
-headers:{
-"Content-Type":
-"application/json"
-},
-
-body:JSON.stringify(data)
-
+body:formData
 }
 
 );
