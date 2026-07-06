@@ -206,8 +206,9 @@ document.getElementById(
 ).innerHTML = `
 
 <div style="
+margin-top:20px;
 padding:15px;
-background:#ecfeff;
+background:#f8fafc;
 border-radius:8px;
 ">
 
@@ -215,13 +216,104 @@ border-radius:8px;
 FORM BELUM PUNYA DESAIN
 </h3>
 
-<p>
-Form desain akan tampil disini
-</p>
+<label>
+JENIS CETAK
+</label>
+
+<select
+id="jenisCetak"
+style="
+width:100%;
+padding:12px;
+margin-top:8px;
+margin-bottom:15px;
+">
+
+<option value="">
+Pilih Jenis Cetak
+</option>
+
+<option>
+BANNER / SPANDUK
+</option>
+
+<option>
+STICKER LABEL
+</option>
+
+<option>
+KARTU NAMA
+</option>
+
+</select>
+
+<label>
+UKURAN
+</label>
+
+<input
+id="ukuran"
+type="text"
+placeholder="Contoh : 100x50 CM">
+
+<br><br>
+
+<label>
+JUDUL / BRAND
+</label>
+
+<textarea
+id="judulBrand"
+style="
+width:100%;
+height:120px;
+padding:12px;
+box-sizing:border-box;
+"></textarea>
+
+<br><br>
+
+<button
+onclick="testKirimForm()">
+
+KIRIM FORM DESAIN
+
+</button>
 
 </div>
 
 `;
+
+}
+
+function testKirimForm(){
+
+const data = {
+
+jenisCetak:
+document.getElementById(
+"jenisCetak"
+).value,
+
+ukuran:
+document.getElementById(
+"ukuran"
+).value,
+
+judulBrand:
+document.getElementById(
+"judulBrand"
+).value
+
+};
+
+alert(
+JSON.stringify(
+data,
+null,
+2
+)
+);
 
 }
 
