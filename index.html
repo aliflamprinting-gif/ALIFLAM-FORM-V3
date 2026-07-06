@@ -216,121 +216,246 @@ document.getElementById(
 
 <div style="
 margin-top:20px;
-padding:15px;
-background:#f8fafc;
-border-radius:8px;
+padding:20px;
+background:#111827;
+border-radius:20px;
+color:white;
 ">
 
-<h3>
+<h2 style="
+text-align:center;
+color:#ffb347;
+margin-bottom:25px;
+">
 FORM BELUM PUNYA DESAIN
+</h2>
+
+<div style="
+background:#0d131d;
+padding:15px;
+border-radius:15px;
+margin-bottom:25px;
+">
+
+<div style="margin-bottom:15px;">
+<b style="color:#9ca3af;">
+👤 USERNAME
+</b>
+<br>
+${window.usernameAktif || "-"}
+</div>
+
+<div style="margin-bottom:15px;">
+<b style="color:#9ca3af;">
+📦 NOMOR PESANAN
+</b>
+<br>
+${window.noPesananAktif || "-"}
+</div>
+
+<div>
+<b style="color:#9ca3af;">
+🏷️ SKU
+</b>
+<br>
+${window.skuAktif || "-"}
+</div>
+
+</div>
+
+<h3 style="color:#ffb347;">
+DETAIL PESANAN
 </h3>
 
 <label>JENIS CETAK</label>
 
-<input
+<select
 id="jenisCetak"
-type="text"
-placeholder="Banner, Sticker, Brosur, dll">
+onchange="toggleJenisCetakLainnya()"
+style="
+width:100%;
+height:50px;
+margin-top:8px;
+margin-bottom:15px;
+">
 
-<br><br>
+<option value="">
+Pilih Jenis Cetak
+</option>
+
+<option>BANNER / SPANDUK</option>
+<option>X-BANNER / ROLL BANNER</option>
+<option>STAND BANNER KAYU</option>
+<option>TAPLAK MEJA SPANDUK</option>
+<option>BROSUR / FLYER</option>
+<option>KARTU NAMA</option>
+<option>STICKER LABEL/METERAN</option>
+<option>MENU / POSTER</option>
+<option>PIAGAM / SERTIFIKAT</option>
+
+<option value="LAINNYA">
+JENIS CETAK LAINNYA
+</option>
+
+</select>
+
+<input
+type="text"
+id="jenisCetakLainnya"
+placeholder="Tulis jenis cetak lainnya"
+style="
+display:none;
+width:100%;
+padding:12px;
+margin-bottom:15px;
+box-sizing:border-box;
+">
 
 <label>UKURAN</label>
 
 <input
 id="ukuran"
 type="text"
-placeholder="Contoh : 100x50 CM">
+placeholder="Contoh : 80x120 CM">
 
-<br><br>
+<hr style="margin:25px 0;">
 
-<label>WARNA / KONSEP</label>
+<h3 style="color:#ffb347;">
+WARNA / TEMA
+</h3>
+
+<select
+id="warnaKonsep"
+onchange="toggleWarnaLainnya()"
+style="
+width:100%;
+height:50px;
+margin-bottom:15px;
+">
+
+<option value="">
+Pilih Warna
+</option>
+
+<option>MERAH</option>
+<option>KUNING</option>
+<option>PINK</option>
+<option>BIRU</option>
+<option>ORANGE</option>
+
+<option>MERAH KUNING</option>
+<option>KUNING PINK</option>
+<option>HITAM MERAH</option>
+<option>BIRU HIJAU</option>
+
+<option value="LAINNYA">
+WARNA LAINNYA
+</option>
+
+</select>
 
 <input
-id="warnaKonsep"
 type="text"
-placeholder="Contoh : Merah Hitam">
+id="warnaLainnya"
+placeholder="Tulis warna lainnya"
+style="
+display:none;
+width:100%;
+padding:12px;
+margin-bottom:15px;
+box-sizing:border-box;
+">
 
-<br><br>
+<hr style="margin:25px 0;">
 
-<label>JUDUL / BRAND</label>
+<h3 style="color:#ffb347;">
+MATERI DESAIN
+</h3>
+
+<label>
+JUDUL / NAMA USAHA / BRAND
+</label>
 
 <textarea
 id="judulBrand"
 style="
 width:100%;
 height:100px;
-padding:12px;
-box-sizing:border-box;
 "></textarea>
 
 <br><br>
 
-<label>ISI MATERI</label>
+<label>
+ISI TULISAN
+</label>
 
 <textarea
 id="isiMateri"
 style="
 width:100%;
-height:180px;
-padding:12px;
-box-sizing:border-box;
+height:220px;
 "></textarea>
 
-<br><br>
+<hr style="margin:25px 0;">
 
-<label>OPSI GAMBAR</label>
+<h3 style="color:#ffb347;">
+MODE GAMBAR
+</h3>
 
 <select
 id="opsiGambar"
 style="
 width:100%;
-padding:12px;
+height:50px;
 ">
 
 <option value="">
-Pilih Opsi
+Pilih Mode
 </option>
 
 <option value="WHATSAPP">
-Kirim via WhatsApp
+Saya Akan Kirim ke WhatsApp
 </option>
 
 <option value="DESIGNER">
-Serahkan ke Designer
+Serahkan Kepada Designer
 </option>
 
 <option value="TANPA_GAMBAR">
-Tanpa Gambar
+Tidak Usah Pakai Gambar
 </option>
 
 </select>
 
-<br><br>
+<hr style="margin:25px 0;">
 
-<label>CATATAN</label>
+<h3 style="color:#ffb347;">
+CATATAN
+</h3>
 
 <textarea
 id="catatan"
 style="
 width:100%;
 height:120px;
-padding:12px;
-box-sizing:border-box;
 "></textarea>
 
-<br><br>
+<hr style="margin:25px 0;">
 
-<label>NO WHATSAPP</label>
+<h3 style="color:#ffb347;">
+KONTAK
+</h3>
 
 <input
 id="noWa"
 type="text"
 placeholder="08xxxxxxxxxx">
 
-<br><br>
-
 <button
-onclick="testKirimForm()">
+onclick="testKirimForm()"
+style="
+margin-top:20px;
+">
 
 KIRIM FORM DESAIN
 
@@ -481,6 +606,38 @@ Form cek file akan tampil disini
 </div>
 
 `;
+
+}
+
+function toggleJenisCetakLainnya(){
+
+const val =
+document.getElementById(
+"jenisCetak"
+).value;
+
+document.getElementById(
+"jenisCetakLainnya"
+).style.display =
+val === "LAINNYA"
+? "block"
+: "none";
+
+}
+
+function toggleWarnaLainnya(){
+
+const val =
+document.getElementById(
+"warnaKonsep"
+).value;
+
+document.getElementById(
+"warnaLainnya"
+).style.display =
+val === "LAINNYA"
+? "block"
+: "none";
 
 }
 
