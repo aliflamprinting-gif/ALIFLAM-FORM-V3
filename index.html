@@ -128,7 +128,38 @@ html += `
 
 });
 
-html += "</div>";
+html += `
+
+</div>
+
+<hr style="margin:20px 0;">
+
+<h3>STATUS DESAIN</h3>
+
+<label>
+<input
+type="radio"
+name="statusDesain"
+value="BELUM">
+ BELUM PUNYA DESAIN
+</label>
+
+<br><br>
+
+<label>
+<input
+type="radio"
+name="statusDesain"
+value="SUDAH">
+ SUDAH PUNYA DESAIN
+</label>
+
+<div
+id="areaForm"
+style="margin-top:20px;">
+</div>
+
+`;
 
 document.getElementById("hasil").innerHTML =
 html;
@@ -139,6 +170,84 @@ document.getElementById("hasil").innerHTML =
 "❌ Gagal menghubungi server";
 
 }
+
+}
+
+document.addEventListener(
+"change",
+function(e){
+
+if(
+e.target.name !==
+"statusDesain"
+){
+return;
+}
+
+if(
+e.target.value ===
+"BELUM"
+){
+
+tampilkanFormDesain();
+
+}else{
+
+tampilkanFormCekFile();
+
+}
+
+});
+
+function tampilkanFormDesain(){
+
+document.getElementById(
+"areaForm"
+).innerHTML = `
+
+<div style="
+padding:15px;
+background:#ecfeff;
+border-radius:8px;
+">
+
+<h3>
+FORM BELUM PUNYA DESAIN
+</h3>
+
+<p>
+Form desain akan tampil disini
+</p>
+
+</div>
+
+`;
+
+}
+
+function tampilkanFormCekFile(){
+
+document.getElementById(
+"areaForm"
+).innerHTML = `
+
+<div style="
+padding:15px;
+background:#fef3c7;
+border-radius:8px;
+">
+
+<h3>
+FORM SUDAH PUNYA DESAIN
+</h3>
+
+<p>
+Form cek file akan tampil disini
+</p>
+
+</div>
+
+`;
 
 }
 
