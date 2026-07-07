@@ -39,6 +39,53 @@ box-shadow:
 0 10px 40px rgba(0,0,0,.08);
 margin-top:30px;
 border:1px solid #e5e7eb;
+overflow:hidden;
+position:relative;
+}
+
+.card::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:6px;
+
+background:
+linear-gradient(
+90deg,
+#ff0055,
+#ff8a00,
+#ffd500,
+#00c853,
+#2979ff,
+#aa00ff
+);
+}
+
+.logo-wrap{
+text-align:center;
+margin-bottom:10px;
+}
+
+.logo-header{
+width:280px;
+max-width:100%;
+height:auto;
+object-fit:contain;
+filter:
+drop-shadow(
+0 10px 20px rgba(0,0,0,.15)
+);
+}
+
+.subtitle{
+text-align:center;
+font-size:16px;
+font-weight:600;
+color:#6b7280;
+margin-top:-5px;
+margin-bottom:25px;
 }
 
 h1{
@@ -46,13 +93,6 @@ text-align:center;
 font-size:42px;
 font-weight:800;
 color:#111827;
-margin-bottom:10px;
-}
-
-h1::before{
-content:"🖨️";
-display:block;
-font-size:60px;
 margin-bottom:10px;
 }
 
@@ -149,6 +189,55 @@ color:#111827;
 margin-bottom:15px;
 }
 
+.status-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:20px;
+}
+
+.status-card{
+border:2px solid #e5e7eb;
+border-radius:18px;
+padding:20px;
+cursor:pointer;
+transition:.25s;
+background:#fff;
+text-align:center;
+}
+
+.status-card:hover{
+transform:translateY(-3px);
+border-color:#2563eb;
+box-shadow:0 10px 25px rgba(37,99,235,.15);
+}
+
+.status-icon{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.status-title{
+font-size:18px;
+font-weight:700;
+color:#111827;
+margin-bottom:8px;
+}
+
+.status-desc{
+font-size:14px;
+color:#6b7280;
+line-height:1.5;
+}
+
+@media(max-width:768px){
+
+.status-grid{
+grid-template-columns:1fr;
+}
+
+}
+
 @media(max-width:768px){
 
 body{
@@ -161,12 +250,28 @@ border-radius:18px;
 margin-top:10px;
 }
 
-h1{
-font-size:30px;
+.card::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:6px;
+
+background:
+linear-gradient(
+90deg,
+#ff0055,
+#ff8a00,
+#ffd500,
+#00c853,
+#2979ff,
+#aa00ff
+);
 }
 
-h1::before{
-font-size:45px;
+h1{
+font-size:30px;
 }
 
 button{
@@ -183,7 +288,19 @@ padding:15px;
 
 <div class="card">
 
+<div class="logo-wrap">
+
+<img
+src="LOGO%20ALIFLAM%20PRINTING%20stroke.png"
+class="logo-header">
+
+</div>
+
 <h1>FORM KONSULTASI ALIFLAM</h1>
+
+<div class="subtitle">
+Desain & Percetakan Profesional
+</div>
 
 <input
 type="text"
@@ -332,25 +449,47 @@ ${data.items[0].sku}
 
 <hr style="margin:20px 0;">
 
-<h3>STATUS DESAIN</h3>
+<h3>PILIH LAYANAN</h3>
 
-<label>
-<input
-type="radio"
-name="statusDesain"
-value="BELUM">
- BELUM PUNYA DESAIN
-</label>
+<div class="status-grid">
 
-<br><br>
+<div
+class="status-card"
+onclick="tampilkanFormDesain()">
 
-<label>
-<input
-type="radio"
-name="statusDesain"
-value="SUDAH">
- SUDAH PUNYA DESAIN
-</label>
+<div class="status-icon">
+🎨
+</div>
+
+<div class="status-title">
+BELUM PUNYA DESAIN
+</div>
+
+<div class="status-desc">
+Saya ingin dibantu membuat desain dari awal
+</div>
+
+</div>
+
+<div
+class="status-card"
+onclick="tampilkanFormCekFile()">
+
+<div class="status-icon">
+📁
+</div>
+
+<div class="status-title">
+SUDAH PUNYA DESAIN
+</div>
+
+<div class="status-desc">
+Saya hanya ingin cek file desain sebelum dicetak
+</div>
+
+</div>
+
+</div>
 
 <div
 id="areaForm"
@@ -429,26 +568,6 @@ document.getElementById("hasil").innerHTML =
 document.addEventListener(
 "change",
 function(e){
-
-if(
-e.target.name ===
-"statusDesain"
-){
-
-if(
-e.target.value ===
-"BELUM"
-){
-
-tampilkanFormDesain();
-
-}else{
-
-tampilkanFormCekFile();
-
-}
-
-}
 
 if(
 e.target.id ===
@@ -590,25 +709,47 @@ ${window.skuAktif}
 
 <br><br>
 
-<h3>STATUS DESAIN</h3>
+<h3>PILIH LAYANAN</h3>
 
-<label>
-<input
-type="radio"
-name="statusDesain"
-value="BELUM">
- BELUM PUNYA DESAIN
-</label>
+<div class="status-grid">
 
-<br><br>
+<div
+class="status-card"
+onclick="tampilkanFormDesain()">
 
-<label>
-<input
-type="radio"
-name="statusDesain"
-value="SUDAH">
- SUDAH PUNYA DESAIN
-</label>
+<div class="status-icon">
+🎨
+</div>
+
+<div class="status-title">
+BELUM PUNYA DESAIN
+</div>
+
+<div class="status-desc">
+Saya ingin dibantu membuat desain dari awal
+</div>
+
+</div>
+
+<div
+class="status-card"
+onclick="tampilkanFormCekFile()">
+
+<div class="status-icon">
+📁
+</div>
+
+<div class="status-title">
+SUDAH PUNYA DESAIN
+</div>
+
+<div class="status-desc">
+Saya hanya ingin cek file desain sebelum dicetak
+</div>
+
+</div>
+
+</div>
 
 <div
 id="areaForm"
