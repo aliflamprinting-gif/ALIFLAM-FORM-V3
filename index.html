@@ -768,16 +768,26 @@ html += `
 </div>
 `;
 
+if(data.items.length > 1){
+
+document.getElementById(
+"hasil"
+).innerHTML = "";
+
+setTimeout(()=>{
+
+showSkuPopup(
+data.items
+);
+
+},100);
+
+}else{
+
 document.getElementById(
 "hasil"
 ).innerHTML =
 html;
-
-if(data.items.length > 1){
-
-setTimeout(()=>{
-showSkuPopup(data.items);
-},100);
 
 }
 
