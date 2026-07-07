@@ -605,62 +605,25 @@ data.message ===
 "SEMUA_SUDAH_ISI"
 ){
 
-document.getElementById(
-"hasil"
-).innerHTML = `
-
-<div style="
-padding:15px;
-background:#fef2f2;
-border-radius:8px;
-color:#b91c1c;
-">
-
-<b>
-✔ PESANAN SUDAH PERNAH MENGISI FORM
-</b>
-
-<br><br>
-
-Jika ingin melakukan perubahan,
-silahkan hubungi kami melalui WhatsApp.
-
-</div>
-
-`;
+showPopup(
+"ℹ️",
+"Form Sudah Pernah Diisi",
+"Pesanan ini sudah pernah mengisi form. Jika ingin melakukan perubahan, silakan hubungi kami melalui WhatsApp."
+);
 
 }else{
 
-document.getElementById(
-"hasil"
-).innerHTML = `
-
-<div style="
-padding:15px;
-background:#fef2f2;
-border-radius:8px;
-color:#b91c1c;
-">
-
-<b>
-✖ NOMOR PESANAN TIDAK DITEMUKAN
-</b>
-
-<br><br>
-
-Pastikan nomor pesanan yang dimasukkan sudah benar.
-
-<br><br>
-
-Jika pesanan baru saja dibuat,
-mohon tunggu sekitar 15–20 menit
-agar data masuk ke sistem kami.
-
-</div>
-
-`;
+showPopup(
+"❌",
+"Nomor Pesanan Tidak Ditemukan",
+"Pastikan nomor pesanan yang dimasukkan sudah benar. Jika pesanan baru saja dibuat, mohon tunggu sekitar 15–20 menit agar data masuk ke sistem kami."
+);
 
 }
+
+document.getElementById(
+"hasil"
+).innerHTML = "";
 
 return;
 
@@ -797,80 +760,15 @@ style="margin-top:20px;">
 }else{
 
 html += `
-
-<h3 style="
-text-align:center;
-color:#1d4ed8;
-font-size:22px;
-margin-bottom:20px;
-">
-
-PILIH PRODUK YANG INGIN DIKONSULTASIKAN
-
-</h3>
-
-`;
-
-data.items.forEach((item,index) => {
-
-html += `
-
 <div style="
-margin-bottom:18px;
-">
-
-<div style="
-font-size:14px;
+background:#dbeafe;
+padding:12px;
+border-radius:10px;
 font-weight:700;
-color:#6b7280;
-margin-bottom:8px;
+text-align:center;
 ">
-
-PRODUK KE-${index+1}
-
+📦 Ditemukan ${data.items.length} produk
 </div>
-
-<div
-onclick="
-pilihSkuCard(
-'${item.rowIndex}',
-'${item.sku}'
-)
-"
-class="status-card sku-card"
-data-row="${item.rowIndex}"
-data-sku="${item.sku}">
-
-<div class="status-title">
-
-${item.sku}
-
-</div>
-
-<div class="status-desc">
-
-Qty : ${item.qty}
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-html += `
-
-<button
-type="button"
-onclick="lanjutPilihSku()">
-
-LANJUTKAN
-
-</button>
-
 `;
 
 }
@@ -883,6 +781,14 @@ document.getElementById(
 "hasil"
 ).innerHTML =
 html;
+
+if(data.items.length > 1){
+
+setTimeout(()=>{
+showSkuPopup(data.items);
+},100);
+
+}
 
 }catch(err){
 
@@ -1002,7 +908,95 @@ area.style.display =
 
 });
 
-function pilihSkuCard(
+function showSkuPopup(items){
+
+let html = `
+<div
+class="popup-overlay"
+id="popupSku">
+
+<div
+class="popup-box"
+style="
+max-width:500px;
+">
+
+<div class="popup-icon">
+📦
+</div>
+
+<div class="popup-title">
+Pilih Produk
+</div>
+
+<div class="popup-message">
+Silakan pilih produk yang ingin dikonsultasikan.
+</div>
+
+`;
+
+items.forEach((item,index)=>{
+
+html += `
+
+<div
+onclick="
+pilihSkuPopup(
+'${item.rowIndex}',
+'${item.sku}'
+)
+"
+style="
+border:2px solid #e5e7eb;
+border-radius:14px;
+padding:14px;
+margin-bottom:10px;
+cursor:pointer;
+transition:.2s;
+">
+
+<div style="
+font-weight:700;
+color:#111827;
+margin-bottom:5px;
+">
+PRODUK KE-${index+1}
+</div>
+
+<div style="
+font-size:15px;
+font-weight:600;
+">
+${item.sku}
+</div>
+
+<div style="
+font-size:13px;
+color:#6b7280;
+margin-top:4px;
+">
+Qty : ${item.qty}
+</div>
+
+</div>
+
+`;
+
+});
+
+html += `
+</div>
+</div>
+`;
+
+document.body.insertAdjacentHTML(
+"beforeend",
+html
+);
+
+}
+
+function pilihSkuPopup(
 rowIndex,
 sku
 ){
@@ -1013,82 +1007,40 @@ rowIndex;
 window.skuAktif =
 sku;
 
-document
-.querySelectorAll(
-".sku-card"
-)
-.forEach(card=>{
-
-card.style.borderColor =
-"#e5e7eb";
-
-card.style.background =
-"#ffffff";
-
-});
-
-const selected =
-document.querySelector(
-'[data-row="'+rowIndex+'"]'
-);
-
-if(selected){
-
-selected.style.borderColor =
-"#2563eb";
-
-selected.style.background =
-"#eff6ff";
-
-}
-
-}
-
-function lanjutPilihSku(){
-
-if(
-!window.rowAktif
-){
-
-showPopup(
-"⚠️",
-"Produk Belum Dipilih",
-"Pilih produk yang ingin dikonsultasikan terlebih dahulu."
-);
-
-return;
-
-}
-
-const areaFormLama =
 document.getElementById(
-"areaPilihStatus"
-);
+"popupSku"
+)?.remove();
 
-if(areaFormLama){
-areaFormLama.remove();
+tampilkanPilihanLayanan();
+
 }
+
+function tampilkanPilihanLayanan(){
 
 document.getElementById(
 "hasil"
-).insertAdjacentHTML(
-"beforeend",
-`
-<div id="areaPilihStatus">
+).innerHTML += `
 
 <hr style="margin:20px 0;">
 
-<b>
-PRODUK YANG DIPILIH :
-</b>
-
-<br><br>
-
+<div style="
+background:#dbeafe;
+padding:12px;
+border-radius:10px;
+font-weight:700;
+margin-bottom:20px;
+">
+📦 Produk Dipilih :
 ${window.skuAktif}
+</div>
 
-<br><br>
-
-<h3>PILIH LAYANAN</h3>
+<h3 style="
+text-align:center;
+color:#1d4ed8;
+font-size:22px;
+">
+PILIH LAYANAN
+</h3>
 
 <div class="status-grid">
 
@@ -1135,9 +1087,8 @@ id="areaForm"
 style="margin-top:20px;">
 </div>
 
-</div>
-`
-);
+`;
+
 }
 
 function tampilkanFormDesain(){
@@ -1581,21 +1532,29 @@ console.log(hasil);
 
 if(hasil.success){
 
-alert(
-"✅ Form berhasil dikirim\n\nID : "
-+ hasil.id +
-"\n\nTerima kasih, data Anda sudah kami terima."
+showPopup(
+"✅",
+"Form Berhasil Dikirim",
+"ID : " +
+hasil.id +
+"<br><br>Terima kasih, data Anda sudah kami terima."
 );
 
+setTimeout(()=>{
 location.reload();
+},3000);
 
 }else{
 
-alert(
-"❌ Gagal menyimpan data.\n\nSilakan coba kembali atau hubungi WhatsApp kami."
+showPopup(
+"❌",
+"Gagal Menyimpan Data",
+"Silakan coba kembali atau hubungi WhatsApp kami."
 );
 
+setTimeout(()=>{
 location.reload();
+},3000);
 
 }
 
@@ -1603,11 +1562,15 @@ location.reload();
 
 hideLoading();
 
-alert(
-"❌ Terjadi kesalahan saat mengirim data.\n\nSilakan coba kembali atau hubungi WhatsApp kami."
+showPopup(
+"❌",
+"Terjadi Kesalahan",
+"Silakan coba kembali atau hubungi WhatsApp kami."
 );
 
+setTimeout(()=>{
 location.reload();
+},3000);
 
 }
 
@@ -2009,7 +1972,11 @@ return;
 }
 
 if(!data.fileUpload){
-alert("Pilih metode pengiriman file");
+showPopup(
+"⚠️",
+"Metode Pengiriman Belum Dipilih",
+"Pilih terlebih dahulu metode pengiriman file yang ingin digunakan."
+);
 return;
 }
 
@@ -2018,7 +1985,11 @@ data.fileUpload === "CANVA"
 &&
 !data.linkCanva
 ){
-alert("Link Canva wajib diisi");
+showPopup(
+"⚠️",
+"Link Canva Belum Diisi",
+"Silakan masukkan link Canva terlebih dahulu sebelum mengirim form."
+);
 return;
 }
 
@@ -2081,21 +2052,29 @@ hideLoading();
 
 if(hasil.success){
 
-alert(
-"✅ Form berhasil dikirim\n\nID : "
-+ hasil.id +
-"\n\nTerima kasih, data Anda sudah kami terima."
+showPopup(
+"✅",
+"Form Berhasil Dikirim",
+"ID : " +
+hasil.id +
+"<br><br>Terima kasih, data Anda sudah kami terima."
 );
 
+setTimeout(()=>{
 location.reload();
+},3000);
 
 }else{
 
-alert(
-"❌ Gagal menyimpan data.\n\nSilakan coba kembali atau hubungi WhatsApp kami."
+showPopup(
+"❌",
+"Gagal Menyimpan Data",
+"Silakan coba kembali atau hubungi WhatsApp kami."
 );
 
+setTimeout(()=>{
 location.reload();
+},3000);
 
 }
 
@@ -2103,11 +2082,15 @@ location.reload();
 
 hideLoading();
 
-alert(
-"❌ Terjadi kesalahan saat mengirim data.\n\nSilakan coba kembali atau hubungi WhatsApp kami."
+showPopup(
+"❌",
+"Terjadi Kesalahan",
+"Silakan coba kembali atau hubungi WhatsApp kami."
 );
 
+setTimeout(()=>{
 location.reload();
+},3000);
 
 }
 
