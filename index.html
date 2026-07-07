@@ -457,8 +457,23 @@ Solusi cepat PENGUMPULAN isi desain & CEK FILE
 </div>
 
 <input
+id="noPesananInput"
 type="text"
-placeholder="Masukkan Nomor Pesanan">
+placeholder="Masukkan Nomor Pesanan"
+oninput="togglePasteButton()">
+
+<button
+id="btnPastePesanan"
+type="button"
+onclick="tempelNomorPesanan()"
+style="
+margin-top:10px;
+background:#16a34a;
+">
+
+📋 TEMPEL NOMOR PESANAN
+
+</button>
 
 <button onclick="cekPesanan()">
 CEK PESANAN
@@ -571,10 +586,91 @@ document.getElementById(
 
 }
 
+async function tempelNomorPesanan(){
+
+try{
+
+const text =
+await navigator.clipboard.readText();
+
+if(!text){
+
+showPopup(
+"⚠️",
+"Tidak Ada Data",
+"Silakan salin nomor pesanan di Shopee terlebih dahulu."
+);
+
+return;
+
+}
+
+document.getElementById(
+"noPesananInput"
+).value =
+text.trim();
+
+togglePasteButton();
+
+showPopup(
+"✅",
+"Berhasil",
+"Nomor pesanan berhasil ditempel."
+);
+
+}catch(err){
+
+showPopup(
+"⚠️",
+"Tidak Bisa Mengakses Clipboard",
+"Silakan salin nomor pesanan di Shopee terlebih dahulu."
+);
+
+}
+
+}
+
+function togglePasteButton(){
+
+const input =
+document.getElementById(
+"noPesananInput"
+);
+
+const tombol =
+document.getElementById(
+"btnPastePesanan"
+);
+
+if(
+!input ||
+!tombol
+){
+return;
+}
+
+if(
+input.value.trim()
+){
+
+tombol.style.display =
+"none";
+
+}else{
+
+tombol.style.display =
+"block";
+
+}
+
+}
+
 async function cekPesanan(){
 
 const noPesanan =
-document.querySelector("input").value.trim();
+document.getElementById(
+"noPesananInput"
+).value.trim();
 
 if(!noPesanan){
 showPopup(
