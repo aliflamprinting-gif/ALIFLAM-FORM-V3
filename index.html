@@ -759,17 +759,8 @@ style="margin-top:20px;">
 
 }else{
 
-html += `
-<div style="
-background:#dbeafe;
-padding:12px;
-border-radius:10px;
-font-weight:700;
-text-align:center;
-">
-📦 Ditemukan ${data.items.length} produk
-</div>
-`;
+// Tidak perlu menampilkan informasi jumlah produk.
+// Produk akan dipilih melalui popup.
 
 }
 
@@ -943,7 +934,8 @@ html += `
 onclick="
 pilihSkuPopup(
 '${item.rowIndex}',
-'${item.sku}'
+'${item.sku}',
+'${item.qty}'
 )
 "
 style="
@@ -998,8 +990,21 @@ html
 
 function pilihSkuPopup(
 rowIndex,
-sku
+sku,
+qty
 ){
+
+window.rowAktif = rowIndex;
+window.skuAktif = sku;
+window.qtyAktif = qty;
+
+document.getElementById(
+"popupSku"
+)?.remove();
+
+tampilkanPilihanLayanan();
+
+}
 
 window.rowAktif =
 rowIndex;
@@ -1024,14 +1029,59 @@ document.getElementById(
 <hr style="margin:20px 0;">
 
 <div style="
+margin-bottom:18px;
+">
+
+<div style="
+font-weight:700;
+color:#1e3a8a;
+margin-bottom:6px;
+">
+USERNAME
+</div>
+
+<div style="
 background:#dbeafe;
 padding:12px;
 border-radius:10px;
 font-weight:700;
-margin-bottom:20px;
+margin-bottom:15px;
 ">
-📦 Produk Dipilih :
+${window.usernameAktif}
+</div>
+
+<div style="
+font-weight:700;
+color:#1e3a8a;
+margin-bottom:6px;
+">
+PRODUK DIPILIH
+</div>
+
+<div style="
+background:#eff6ff;
+border:2px solid #bfdbfe;
+padding:14px;
+border-radius:12px;
+">
+
+<div style="
+font-weight:700;
+font-size:16px;
+">
 ${window.skuAktif}
+</div>
+
+<div style="
+margin-top:6px;
+font-size:14px;
+color:#6b7280;
+">
+Qty : ${window.qtyAktif}
+</div>
+
+</div>
+
 </div>
 
 <h3 style="
