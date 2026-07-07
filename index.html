@@ -330,16 +330,6 @@ background:#2563eb;
 color:white;
 }
 
-.popup-overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.45);
-display:flex;
-align-items:center;
-justify-content:center;
-z-index:999999;
-}
-
 .popup-box{
 background:#fff;
 width:90%;
@@ -461,7 +451,7 @@ class="logo-header">
 <h1>FORM KONSULTASI</h1>
 
 <div class="subtitle">
-Solusi cepat PENGUMPULAN materi desain & PENGECEKAN file
+Solusi cepat PENGUMPULAN isi desain & CEK FILE
 </div>
 
 <input
@@ -585,7 +575,11 @@ const noPesanan =
 document.querySelector("input").value.trim();
 
 if(!noPesanan){
-alert("Masukkan nomor pesanan");
+showPopup(
+"⚠️",
+"Nomor Pesanan Kosong",
+"Silakan masukkan nomor pesanan terlebih dahulu."
+);
 return;
 }
 
@@ -832,7 +826,7 @@ color:#6b7280;
 margin-bottom:8px;
 ">
 
-PESANAN KE-${index+1}
+PRODUK KE-${index+1}
 
 </div>
 
@@ -1085,7 +1079,7 @@ document.getElementById(
 <hr style="margin:20px 0;">
 
 <b>
-PESANAN YANG DIPILIH :
+PRODUK YANG DIPILIH :
 </b>
 
 <br><br>
@@ -1186,9 +1180,19 @@ background:#f8fafc;
 border-radius:8px;
 ">
 
-<h3>
-FORM BELUM PUNYA DESAIN
-</h3>
+<div style="
+background:#facc15;
+color:#111827;
+font-size:18px;
+font-weight:800;
+text-align:center;
+padding:14px;
+border-radius:14px;
+margin-bottom:20px;
+box-shadow:0 6px 15px rgba(250,204,21,.35);
+">
+🎨 BELUM PUNYA DESAIN
+</div>
 
 <label>JENIS CETAK</label>
 
@@ -1332,7 +1336,7 @@ Tidak usah Pakai Gambar
 
 <br><br>
 
-<label>CATATAN</label>
+<label>CATATAN (JIKA ADA)</label>
 
 <textarea
 id="catatan"
@@ -1350,6 +1354,16 @@ box-sizing:border-box;
 <br><br>
 
 <label>NO WHATSAPP</label>
+
+<div style="
+font-size:13px;
+color:#6b7280;
+margin-top:-4px;
+margin-bottom:10px;
+line-height:1.5;
+">
+Yang bisa dihubungi, penting untuk konsultasi selanjutnya.
+</div>
 
 <input
 id="noWa"
@@ -1461,32 +1475,56 @@ document.getElementById(
 };
 
 if(!data.jenisCetak){
-alert("Pilih Jenis Cetak");
+showPopup(
+"⚠️",
+"Jenis Cetak Belum Dipilih",
+"Silakan pilih jenis cetak terlebih dahulu."
+);
 return;
 }
 
 if(!data.ukuran){
-alert("Ukuran wajib diisi");
+showPopup(
+"⚠️",
+"Ukuran Belum Diisi",
+"Silakan isi ukuran desain yang diinginkan."
+);
 return;
 }
 
 if(!data.warnaKonsep){
-alert("Pilih Warna / Konsep");
+showPopup(
+"⚠️",
+"Warna Belum Dipilih",
+"Silakan pilih warna atau konsep desain."
+);
 return;
 }
 
 if(!data.isiMateri){
-alert("Isi Materi wajib diisi");
+showPopup(
+"⚠️",
+"Materi Belum Diisi",
+"Silakan isi materi desain terlebih dahulu."
+);
 return;
 }
 
 if(!data.opsiGambar){
-alert("Pilih Opsi Gambar");
+showPopup(
+"⚠️",
+"Opsi Gambar Belum Dipilih",
+"Silakan pilih opsi gambar terlebih dahulu."
+);
 return;
 }
 
 if(!data.noWa){
-alert("Nomor WhatsApp wajib diisi");
+showPopup(
+"⚠️",
+"Nomor WhatsApp Kosong",
+"Silakan masukkan nomor WhatsApp yang dapat dihubungi."
+);
 return;
 }
 
@@ -1494,7 +1532,11 @@ const wa =
 data.noWa.replace(/\D/g,'');
 
 if(wa.length < 10){
-alert("Nomor WhatsApp tidak valid");
+showPopup(
+"⚠️",
+"Nomor WhatsApp Tidak Valid",
+"Pastikan nomor WhatsApp yang dimasukkan sudah benar."
+);
 return;
 }
 
@@ -1611,9 +1653,19 @@ background:#f8fafc;
 border-radius:8px;
 ">
 
-<h3>
-FORM SUDAH PUNYA DESAIN
-</h3>
+<div style="
+background:#166534;
+color:#ffffff;
+font-size:18px;
+font-weight:800;
+text-align:center;
+padding:14px;
+border-radius:14px;
+margin-bottom:20px;
+box-shadow:0 6px 15px rgba(22,101,52,.35);
+">
+📁 SUDAH PUNYA DESAIN
+</div>
 
 <label>JENIS CETAK</label>
 
@@ -1725,7 +1777,7 @@ placeholder="Tempel Link Canva Disini">
 
 </div>
 
-<label>CATATAN</label>
+<label>CATATAN (JIKA ADA)</label>
 
 <textarea
 id="cfCatatan"
@@ -1739,6 +1791,16 @@ box-sizing:border-box;
 <br><br>
 
 <label>NO WHATSAPP</label>
+
+<div style="
+font-size:13px;
+color:#6b7280;
+margin-top:-4px;
+margin-bottom:10px;
+line-height:1.5;
+">
+Yang bisa dihubungi, penting untuk konsultasi selanjutnya.
+</div>
 
 <input
 id="cfNoWa"
@@ -1929,12 +1991,20 @@ document.getElementById(
 };
 
 if(!data.jenisCetak){
-alert("Pilih Jenis Cetak");
+showPopup(
+"⚠️",
+"Jenis Cetak Belum Dipilih",
+"Silakan pilih jenis cetak terlebih dahulu."
+);
 return;
 }
 
 if(!data.ukuran){
-alert("Ukuran wajib diisi");
+showPopup(
+"⚠️",
+"Ukuran Belum Diisi",
+"Silakan isi ukuran desain yang diinginkan."
+);
 return;
 }
 
@@ -1953,7 +2023,11 @@ return;
 }
 
 if(!data.noWa){
-alert("Nomor WhatsApp wajib diisi");
+showPopup(
+"⚠️",
+"Nomor WhatsApp Kosong",
+"Silakan masukkan nomor WhatsApp yang dapat dihubungi."
+);
 return;
 }
 
@@ -1961,7 +2035,11 @@ const wa =
 data.noWa.replace(/\D/g,'');
 
 if(wa.length < 10){
-alert("Nomor WhatsApp tidak valid");
+showPopup(
+"⚠️",
+"Nomor WhatsApp Tidak Valid",
+"Pastikan nomor WhatsApp yang dimasukkan sudah benar."
+);
 return;
 }
 
