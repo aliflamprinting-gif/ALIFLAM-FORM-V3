@@ -824,6 +824,106 @@ e.target.value ===
 
 }
 
+const ukuran =
+document.getElementById(
+"ukuran"
+);
+
+if(ukuran){
+
+switch(e.target.value){
+
+case "X-BANNER / ROLL BANNER":
+ukuran.value = "60x160 CM";
+break;
+
+case "STAND BANNER KAYU":
+ukuran.value = "53x90 CM";
+break;
+
+case "TAPLAK MEJA SPANDUK":
+ukuran.value = "120x120 CM";
+break;
+
+case "KARTU NAMA":
+ukuran.value = "9 x 5,5 CM";
+break;
+
+default:
+break;
+
+}
+
+}
+
+const area =
+document.getElementById(
+"ukuranArea"
+);
+
+if(area){
+
+if(e.target.value === "BANNER / SPANDUK"){
+
+area.innerHTML = `
+
+<label>
+LEBAR KE SAMPING (CM)
+</label>
+
+<input
+id="ukuranLebar"
+type="number"
+placeholder="Contoh : 200"
+oninput="updateUkuranBanner()">
+
+<br><br>
+
+<label>
+PANJANG KE BAWAH (CM)
+</label>
+
+<input
+id="ukuranTinggi"
+type="number"
+placeholder="Contoh : 100"
+oninput="updateUkuranBanner()">
+
+<br><br>
+
+<label>
+HASIL UKURAN DESAIN
+</label>
+
+<input
+id="ukuran"
+type="text"
+readonly
+style="
+background:#eff6ff;
+font-weight:700;
+"
+placeholder="Otomatis muncul">
+
+`;
+
+}else{
+
+area.innerHTML = `
+
+<label>UKURAN</label>
+
+<input
+id="ukuran"
+type="text"
+placeholder="Contoh : 100x50 CM, A5, 3x3 CM BULAT">
+
+`;
+
+}
+
+}
+
 }
 
 if(
@@ -864,6 +964,38 @@ box.style.display =
 e.target.value === "LAINNYA"
 ? "block"
 : "none";
+
+}
+
+const ukuran =
+document.getElementById(
+"cfUkuran"
+);
+
+if(ukuran){
+
+switch(e.target.value){
+
+case "X-BANNER / ROLL BANNER":
+ukuran.value = "60x160 CM";
+break;
+
+case "STAND BANNER KAYU":
+ukuran.value = "53x90 CM";
+break;
+
+case "TAPLAK MEJA SPANDUK":
+ukuran.value = "120x120 CM";
+break;
+
+case "KARTU NAMA":
+ukuran.value = "9 x 5,5 CM";
+break;
+
+default:
+break;
+
+}
 
 }
 
@@ -908,6 +1040,50 @@ area.style.display =
 }
 
 });
+
+function updateUkuranBanner(){
+
+const lebar =
+document.getElementById(
+"ukuranLebar"
+);
+
+const tinggi =
+document.getElementById(
+"ukuranTinggi"
+);
+
+const hasil =
+document.getElementById(
+"ukuran"
+);
+
+if(
+!lebar ||
+!tinggi ||
+!hasil
+){
+return;
+}
+
+if(
+lebar.value &&
+tinggi.value
+){
+
+hasil.value =
+lebar.value +
+"x" +
+tinggi.value +
+" CM";
+
+}else{
+
+hasil.value = "";
+
+}
+
+}
 
 function showSkuPopup(items){
 
@@ -1223,12 +1399,16 @@ style="display:none;">
 
 <br><br>
 
+<div id="ukuranArea">
+
 <label>UKURAN</label>
 
 <input
 id="ukuran"
 type="text"
 placeholder="Contoh : 100x50 CM, A5, 3x3 CM BULAT">
+
+</div>
 
 <br><br>
 
