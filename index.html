@@ -298,10 +298,10 @@ class="logo-header">
 
 </div>
 
-<h1>FORM KONSULTASI ALIFLAM</h1>
+<h1>FORM KONSULTASI</h1>
 
 <div class="subtitle">
-Desain & Percetakan Profesional
+Solusi cepat PENGUMPULAN materi desain & PENGECEKAN file
 </div>
 
 <input
@@ -539,32 +539,64 @@ style="margin-top:20px;">
 
 html += `
 
-<b>
-PILIH PESANAN YANG AKAN DIISI :
-</b>
+<h3 style="
+text-align:center;
+color:#1d4ed8;
+font-size:22px;
+margin-bottom:20px;
+">
 
-<br><br>
+PILIH PRODUK YANG INGIN DIKONSULTASIKAN
+
+</h3>
 
 `;
 
-data.items.forEach(item => {
+data.items.forEach((item,index) => {
 
 html += `
 
-<label>
+<div style="
+margin-bottom:18px;
+">
 
-<input
-type="radio"
-name="pilihSku"
-value="${item.rowIndex}"
+<div style="
+font-size:14px;
+font-weight:700;
+color:#6b7280;
+margin-bottom:8px;
+">
+
+PESANAN KE-${index+1}
+
+</div>
+
+<div
+onclick="
+pilihSkuCard(
+'${item.rowIndex}',
+'${item.sku}'
+)
+"
+class="status-card sku-card"
+data-row="${item.rowIndex}"
 data-sku="${item.sku}">
 
+<div class="status-title">
+
 ${item.sku}
-(${item.qty})
 
-</label>
+</div>
 
-<br><br>
+<div class="status-desc">
+
+Qty : ${item.qty}
+
+</div>
+
+</div>
+
+</div>
 
 `;
 
@@ -711,29 +743,61 @@ area.style.display =
 
 });
 
-function lanjutPilihSku(){
+function pilihSkuCard(
+rowIndex,
+sku
+){
 
-const radio =
+window.rowAktif =
+rowIndex;
 
+window.skuAktif =
+sku;
+
+document
+.querySelectorAll(
+".sku-card"
+)
+.forEach(card=>{
+
+card.style.borderColor =
+"#e5e7eb";
+
+card.style.background =
+"#ffffff";
+
+});
+
+const selected =
 document.querySelector(
-'input[name="pilihSku"]:checked'
+'[data-row="'+rowIndex+'"]'
 );
 
-if(!radio){
+if(selected){
+
+selected.style.borderColor =
+"#2563eb";
+
+selected.style.background =
+"#eff6ff";
+
+}
+
+}
+
+function lanjutPilihSku(){
+
+if(
+!window.rowAktif
+){
 
 alert(
-"Pilih pesanan terlebih dahulu"
+"Pilih produk terlebih dahulu"
 );
 
 return;
 
 }
-
-window.rowAktif =
-radio.value;
-
-window.skuAktif =
-radio.dataset.sku;
 
 const areaFormLama =
 document.getElementById(
@@ -896,7 +960,7 @@ style="display:none;">
 <input
 id="ukuran"
 type="text"
-placeholder="Contoh : 100x50 CM">
+placeholder="Contoh : 100x50 CM, A5, 3x3 CM BULAT">
 
 <br><br>
 
@@ -1312,7 +1376,7 @@ style="display:none;">
 <input
 id="cfUkuran"
 type="text"
-placeholder="Contoh : 100x50 CM">
+placeholder="Contoh : 100x50 CM, A5, 3x3 CM BULAT">
 
 <br><br>
 
@@ -1320,35 +1384,61 @@ placeholder="Contoh : 100x50 CM">
 PILIH CARA PENGIRIMAN FILE
 </h4>
 
-<label style="
-display:flex;
-align-items:center;
+<div style="
+display:grid;
+grid-template-columns:1fr 1fr;
 gap:12px;
-padding:18px;
-border:2px solid #e5e7eb;
-border-radius:12px;
-cursor:pointer;
-font-weight:600;
+margin-bottom:15px;
 ">
+
+<div
+id="cardCanva"
+onclick="pilihModeFile('CANVA')"
+class="status-card">
+
+<div class="status-icon">
+🎨
+</div>
+
+<div class="status-title">
+LINK CANVA
+</div>
+
+<div class="status-desc">
+Kirim link Canva untuk dicek
+</div>
+
+</div>
+
+<div
+id="cardWhatsapp"
+onclick="pilihModeFile('WHATSAPP')"
+class="status-card">
+
+<div class="status-icon">
+📱
+</div>
+
+<div class="status-title">
+FILE WHATSAPP
+</div>
+
+<div class="status-desc">
+Kirim file melalui WhatsApp
+</div>
+
+</div>
+
+</div>
 
 <input
-type="radio"
-name="modeFile"
-value="CANVA"
-style="
-width:auto;
-margin:0;
-">
-
-🎨 Saya akan mengirim LINK CANVA
-
-</label>
+type="hidden"
+id="modeFileValue">
 
 <div
 id="areaCanva"
 style="
 display:none;
-margin-top:10px;
 margin-bottom:15px;
 ">
 
@@ -1358,32 +1448,6 @@ type="text"
 placeholder="Tempel Link Canva Disini">
 
 </div>
-
-<label style="
-display:flex;
-align-items:center;
-gap:12px;
-padding:18px;
-border:2px solid #e5e7eb;
-border-radius:12px;
-cursor:pointer;
-font-weight:600;
-">
-
-<input
-type="radio"
-name="modeFile"
-value="WHATSAPP"
-style="
-width:auto;
-margin:0;
-">
-
-📱 Saya akan mengirim FILE melalui WhatsApp
-
-</label>
-
-<br>
 
 <label>CATATAN</label>
 
@@ -1420,6 +1484,76 @@ KIRIM FORM CEK FILE
 
 }
 
+function pilihModeFile(mode){
+
+document.getElementById(
+"modeFileValue"
+).value = mode;
+
+const cardCanva =
+document.getElementById(
+"cardCanva"
+);
+
+const cardWhatsapp =
+document.getElementById(
+"cardWhatsapp"
+);
+
+cardCanva.style.borderColor =
+"#e5e7eb";
+
+cardWhatsapp.style.borderColor =
+"#e5e7eb";
+
+cardCanva.style.background =
+"#ffffff";
+
+cardWhatsapp.style.background =
+"#ffffff";
+
+if(mode === "CANVA"){
+
+cardCanva.style.borderColor =
+"#2563eb";
+
+cardCanva.style.background =
+"#eff6ff";
+
+document.getElementById(
+"areaCanva"
+).style.display =
+"block";
+
+setTimeout(()=>{
+
+document.getElementById(
+"cfLinkCanva"
+)?.focus();
+
+},100);
+
+}else{
+
+cardWhatsapp.style.borderColor =
+"#2563eb";
+
+cardWhatsapp.style.background =
+"#eff6ff";
+
+document.getElementById(
+"areaCanva"
+).style.display =
+"none";
+
+document.getElementById(
+"cfLinkCanva"
+).value = "";
+
+}
+
+}
+
 function kembaliPilihLayanan(){
 
 document.querySelectorAll(
@@ -1438,11 +1572,15 @@ document.getElementById(
 
 async function testKirimFormCekFile(){
 
-const modeFile =
+const modeFile = {
 
-document.querySelector(
-'input[name="modeFile"]:checked'
-);
+value:
+
+document.getElementById(
+"modeFileValue"
+).value
+
+};
 
 const data = {
 
@@ -1500,10 +1638,7 @@ document.getElementById(
 "",
 
 fileUpload:
-
-modeFile
-? modeFile.value
-: "",
+modeFile.value || "",
 
 catatan:
 document.getElementById(
