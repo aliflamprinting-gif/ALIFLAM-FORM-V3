@@ -65,7 +65,7 @@ linear-gradient(
 
 .logo-wrap{
 text-align:center;
-margin-bottom:10px;
+margin-bottom:-25px;
 }
 
 .logo-header{
@@ -909,6 +909,32 @@ placeholder="Otomatis muncul">
 
 }else{
 
+let ukuranDefault = "";
+
+switch(e.target.value){
+
+case "X-BANNER / ROLL BANNER":
+ukuranDefault = "60x160 CM";
+break;
+
+case "STAND BANNER KAYU":
+ukuranDefault = "53x90 CM";
+break;
+
+case "TAPLAK MEJA SPANDUK":
+ukuranDefault = "120x120 CM";
+break;
+
+case "KARTU NAMA":
+ukuranDefault = "9 x 5,5 CM";
+break;
+
+default:
+ukuranDefault = "";
+break;
+
+}
+
 area.innerHTML = `
 
 <label>UKURAN</label>
@@ -916,6 +942,7 @@ area.innerHTML = `
 <input
 id="ukuran"
 type="text"
+value="${ukuranDefault}"
 placeholder="Contoh : 100x50 CM, A5, 3x3 CM BULAT">
 
 `;
