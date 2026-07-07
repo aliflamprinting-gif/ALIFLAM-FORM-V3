@@ -683,10 +683,27 @@ document.getElementById(
 
 if(area){
 
-area.style.display =
+if(
 e.target.value === "CANVA"
-? "block"
-: "none";
+){
+
+area.style.display =
+"block";
+
+setTimeout(()=>{
+
+document.getElementById(
+"cfLinkCanva"
+)?.focus();
+
+},100);
+
+}else{
+
+area.style.display =
+"none";
+
+}
 
 }
 
@@ -1327,7 +1344,20 @@ margin:0;
 
 </label>
 
-<br>
+<div
+id="areaCanva"
+style="
+display:none;
+margin-top:10px;
+margin-bottom:15px;
+">
+
+<input
+id="cfLinkCanva"
+type="text"
+placeholder="Tempel Link Canva Disini">
+
+</div>
 
 <label style="
 display:flex;
@@ -1352,20 +1382,6 @@ margin:0;
 📱 Saya akan mengirim FILE melalui WhatsApp
 
 </label>
-
-<div
-id="areaCanva"
-style="
-display:none;
-margin-top:15px;
-">
-
-<input
-id="cfLinkCanva"
-type="text"
-placeholder="Masukkan Link Canva">
-
-</div>
 
 <br>
 
