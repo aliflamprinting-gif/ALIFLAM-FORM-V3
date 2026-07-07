@@ -128,6 +128,8 @@ box-shadow:
 
 textarea{
 resize:vertical;
+width:100%;
+display:block;
 }
 
 button{
@@ -296,7 +298,7 @@ class="logo-header">
 
 </div>
 
-<h1>FORM KONSULTASI</h1>
+<h1>FORM KONSULTASI ALIFLAM</h1>
 
 <div class="subtitle">
 Desain & Percetakan Profesional
@@ -425,9 +427,24 @@ background:#f8fafc;
 border-radius:8px;
 ">
 
-<b>USERNAME :</b><br>
+<div style="
+font-weight:700;
+color:#1e3a8a;
+margin-bottom:6px;
+">
+USERNAME
+</div>
+
+<div style="
+background:#dbeafe;
+padding:12px;
+border-radius:10px;
+font-weight:700;
+color:#111827;
+margin-bottom:15px;
+">
 ${data.username}
-<br><br>
+</div>
 `;
 
 if(
@@ -442,14 +459,34 @@ data.items[0].rowIndex;
 
 html += `
 
-<b>SKU :</b><br>
+<div style="
+font-weight:700;
+color:#1e3a8a;
+margin-bottom:6px;
+">
+SKU
+</div>
 
+<div style="
+background:#dbeafe;
+padding:12px;
+border-radius:10px;
+font-weight:700;
+color:#111827;
+">
 ${data.items[0].sku}
 (${data.items[0].qty})
+</div>
 
 <hr style="margin:20px 0;">
 
-<h3>PILIH LAYANAN</h3>
+<h3 style="
+text-align:center;
+color:#1d4ed8;
+font-size:22px;
+">
+PILIH LAYANAN :
+</h3>
 
 <div class="status-grid">
 
@@ -768,6 +805,25 @@ document.getElementById(
 ).innerHTML = `
 
 <div style="
+margin-bottom:15px;
+">
+
+<a
+href="#"
+onclick="kembaliPilihLayanan();return false;"
+style="
+color:#2563eb;
+font-weight:700;
+text-decoration:none;
+">
+
+← Kembali Pilih Layanan
+
+</a>
+
+</div>
+
+<div style="
 margin-top:20px;
 padding:15px;
 background:#f8fafc;
@@ -1048,6 +1104,43 @@ document.getElementById(
 
 };
 
+if(!data.jenisCetak){
+alert("Jenis Cetak wajib diisi");
+return;
+}
+
+if(!data.ukuran){
+alert("Ukuran wajib diisi");
+return;
+}
+
+if(!data.fileUpload){
+alert("Pilih metode pengiriman file");
+return;
+}
+
+if(
+data.fileUpload === "CANVA"
+&&
+!data.linkCanva
+){
+alert("Link Canva wajib diisi");
+return;
+}
+
+if(!data.noWa){
+alert("Nomor WhatsApp wajib diisi");
+return;
+}
+
+const wa =
+data.noWa.replace(/\D/g,'');
+
+if(wa.length < 10){
+alert("Nomor WhatsApp tidak valid");
+return;
+}
+
 try{
 
 const formData =
@@ -1117,6 +1210,25 @@ function tampilkanFormCekFile(){
 document.getElementById(
 "areaForm"
 ).innerHTML = `
+
+<div style="
+margin-bottom:15px;
+">
+
+<a
+href="#"
+onclick="kembaliPilihLayanan();return false;"
+style="
+color:#2563eb;
+font-weight:700;
+text-decoration:none;
+">
+
+← Kembali Pilih Layanan
+
+</a>
+
+</div>
 
 <div style="
 margin-top:20px;
@@ -1242,6 +1354,22 @@ KIRIM FORM CEK FILE
 </div>
 
 `;
+
+}
+
+function kembaliPilihLayanan(){
+
+document.querySelectorAll(
+".status-grid"
+).forEach(el=>{
+
+el.style.display="grid";
+
+});
+
+document.getElementById(
+"areaForm"
+).innerHTML = "";
 
 }
 
