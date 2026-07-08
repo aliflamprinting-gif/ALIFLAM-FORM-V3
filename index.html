@@ -2433,9 +2433,10 @@ class="popup-overlay">
 <div
 class="popup-box"
 style="
-max-width:800px;
+max-width:700px;
 width:95%;
 text-align:left;
+max-height:90vh;
 ">
 
 <div style="
@@ -2468,47 +2469,89 @@ lebih cepat.
 <div style="
 max-height:60vh;
 overflow:auto;
-line-height:1.8;
-white-space:pre-line;
 ">
 
-<b>JENIS CETAK :</b><br>
-${data.jenisCetak}
+<div style="
+display:grid;
+grid-template-columns:120px 1fr;
+gap:8px;
+row-gap:12px;
+font-size:14px;
+margin-bottom:20px;
+">
 
-<br><br>
+<div><b>JENIS CETAK</b></div>
+<div>: ${data.jenisCetak}</div>
 
-<b>UKURAN :</b><br>
-${data.ukuran}
+<div><b>UKURAN</b></div>
+<div>: ${data.ukuran}</div>
 
-<br><br>
+<div><b>WARNA</b></div>
+<div>: ${data.warnaKonsep}</div>
 
-<b>WARNA :</b><br>
-${data.warnaKonsep}
+<div><b>OPSI GAMBAR</b></div>
+<div>: ${data.opsiGambar}</div>
 
-<br><br>
+<div><b>NO WA</b></div>
+<div>: ${data.noWa}</div>
 
-<b>JUDUL / BRAND :</b><br>
-${data.judulBrand}
+</div>
 
-<br><br>
+<div style="
+font-weight:700;
+margin-bottom:8px;
+color:#111827;
+">
+JUDUL / BRAND
+</div>
 
-<b>ISI MATERI DESAIN :</b><br>
+<div style="
+background:#f8fafc;
+border:1px solid #e5e7eb;
+padding:12px;
+border-radius:10px;
+margin-bottom:15px;
+white-space:pre-wrap;
+">
+${data.judulBrand || "-"}
+</div>
+
+<div style="
+font-weight:700;
+margin-bottom:8px;
+color:#111827;
+">
+ISI MATERI DESAIN
+</div>
+
+<div style="
+background:#f8fafc;
+border:1px solid #e5e7eb;
+padding:12px;
+border-radius:10px;
+margin-bottom:15px;
+white-space:pre-wrap;
+">
 ${data.isiMateri}
+</div>
 
-<br><br>
+<div style="
+font-weight:700;
+margin-bottom:8px;
+color:#111827;
+">
+CATATAN
+</div>
 
-<b>OPSI GAMBAR :</b><br>
-${data.opsiGambar}
-
-<br><br>
-
-<b>CATATAN :</b><br>
+<div style="
+background:#f8fafc;
+border:1px solid #e5e7eb;
+padding:12px;
+border-radius:10px;
+white-space:pre-wrap;
+">
 ${data.catatan || "-"}
-
-<br><br>
-
-<b>NO WHATSAPP :</b><br>
-${data.noWa}
+</div>
 
 </div>
 
