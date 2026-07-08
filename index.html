@@ -2078,7 +2078,7 @@ type="tel"
 inputmode="numeric"
 pattern="[0-9]*"
 placeholder="Masukan nomor..."
-oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+oninput="formatNomorWa(this)">
 
 <br><br>
 
@@ -2561,7 +2561,7 @@ document.getElementById(
 noWa:
 document.getElementById(
 "noWa"
-).value
+).dataset.raw || ""
 
 };
 
@@ -3182,7 +3182,7 @@ document.getElementById(
 noWa:
 document.getElementById(
 "noWa"
-).value
+).dataset.raw || ""
 
 };
 
@@ -3614,7 +3614,7 @@ type="tel"
 inputmode="numeric"
 pattern="[0-9]*"
 placeholder="Masukan nomor..."
-oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+oninput="formatNomorWa(this)">
 
 <br><br>
 
@@ -3795,7 +3795,7 @@ document.getElementById(
 noWa:
 document.getElementById(
 "cfNoWa"
-).value
+).dataset.raw || ""
 
 };
 
@@ -4082,6 +4082,54 @@ ${tombol}
 </div>
 `
 );
+
+}
+
+function formatNomorWa(input){
+
+let angka =
+input.value.replace(/\D/g,'');
+
+if(
+angka.startsWith('0')
+){
+angka =
+'62' + angka.substring(1);
+}
+
+if(
+angka.startsWith('620')
+){
+angka =
+'62' + angka.substring(3);
+}
+
+const tampilan =
+angka.replace(
+/(\d{0,2})(\d{0,4})(\d{0,4})(\d{0,5})/,
+function(
+m,
+a,
+b,
+c,
+d
+){
+
+let hasil = '';
+
+if(a) hasil += a;
+if(b) hasil += '-' + b;
+if(c) hasil += '-' + c;
+if(d) hasil += '-' + d;
+
+return hasil;
+
+}
+);
+
+input.value = tampilan;
+
+input.dataset.raw = angka;
 
 }
 
