@@ -4008,7 +4008,7 @@ position:relative;
 ">
 
 <button
-onclick="document.getElementById('popupSuksesCekFile').remove()"
+onclick="location.reload()"
 style="
 position:absolute;
 top:10px;
@@ -4057,7 +4057,16 @@ Klik tombol dibawah untuk melanjutkan pengiriman file desain kepada admin.`
 </div>
 
 <button
-onclick="window.open('https://wa.me/6281617905237?text=${pesan}','_blank')"
+onclick="
+window.open(
+'https://wa.me/6281617905237?text=${pesan}',
+'_blank'
+);
+
+setTimeout(()=>{
+location.reload();
+},500);
+"
 style="
 background:#16a34a;
 ">
