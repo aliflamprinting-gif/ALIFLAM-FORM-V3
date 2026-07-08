@@ -2575,6 +2575,19 @@ return;
 
 }
 
+if(
+document.getElementById("jenisCetak").value === "LAINNYA" &&
+!document.getElementById("jenisCetakLainnya").value.trim()
+){
+
+fokusError(
+"jenisCetakLainnya"
+);
+
+return;
+
+}
+
 if(!data.ukuran){
 
 fokusError(
@@ -2589,6 +2602,19 @@ if(!data.warnaKonsep){
 
 fokusError(
 "warnaKonsep"
+);
+
+return;
+
+}
+
+if(
+document.getElementById("warnaKonsep").value === "LAINNYA" &&
+!document.getElementById("warnaLainnya").value.trim()
+){
+
+fokusError(
+"warnaLainnya"
 );
 
 return;
@@ -3319,7 +3345,7 @@ catatan:
 document.getElementById("cfCatatan").value,
 
 noWa:
-document.getElementById("cfNoWa").value
+document.getElementById("cfNoWa").dataset.raw || ""
 
 };
 
@@ -3823,6 +3849,19 @@ if(!data.jenisCetak){
 
 fokusError(
 "cfJenisCetak"
+);
+
+return;
+
+}
+
+if(
+document.getElementById("cfJenisCetak").value === "LAINNYA" &&
+!document.getElementById("cfJenisCetakLainnya").value.trim()
+){
+
+fokusError(
+"cfJenisCetakLainnya"
 );
 
 return;
