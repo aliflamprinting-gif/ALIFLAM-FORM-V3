@@ -2566,57 +2566,77 @@ document.getElementById(
 };
 
 if(!data.jenisCetak){
-showPopup(
-"⚠️",
-"Jenis Cetak Belum Dipilih",
-"Silakan pilih jenis cetak terlebih dahulu."
+
+fokusError(
+"jenisCetak"
 );
+
 return;
+
 }
 
 if(!data.ukuran){
-showPopup(
-"⚠️",
-"Ukuran Belum Diisi",
-"Silakan isi ukuran desain yang diinginkan."
+
+fokusError(
+"ukuran"
 );
+
 return;
+
 }
 
 if(!data.warnaKonsep){
-showPopup(
-"⚠️",
-"Warna Belum Dipilih",
-"Silakan pilih warna atau konsep desain."
+
+fokusError(
+"warnaKonsep"
 );
+
 return;
+
 }
 
 if(!data.isiMateri){
-showPopup(
-"⚠️",
-"Materi Belum Diisi",
-"Silakan isi materi desain terlebih dahulu."
+
+const box =
+document.getElementById(
+"statusMateri"
 );
+
+box.style.border =
+"3px solid #ef4444";
+
+box.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+setTimeout(()=>{
+box.style.border =
+"2px solid #fecaca";
+},3000);
+
 return;
+
 }
 
 if(!data.opsiGambar){
-showPopup(
-"⚠️",
-"Opsi Gambar Belum Dipilih",
-"Silakan pilih opsi gambar terlebih dahulu."
+
+fokusError(
+"opsiGambar"
 );
+
 return;
+
 }
 
 if(!data.noWa){
-showPopup(
-"⚠️",
-"Nomor WhatsApp Kosong",
-"Silakan masukkan nomor WhatsApp yang dapat dihubungi."
+
+fokusError(
+"noWa"
 );
+
 return;
+
 }
 
 const wa =
@@ -3800,30 +3820,52 @@ document.getElementById(
 };
 
 if(!data.jenisCetak){
-showPopup(
-"⚠️",
-"Jenis Cetak Belum Dipilih",
-"Silakan pilih jenis cetak terlebih dahulu."
+
+fokusError(
+"cfJenisCetak"
 );
+
 return;
+
 }
 
 if(!data.ukuran){
-showPopup(
-"⚠️",
-"Ukuran Belum Diisi",
-"Silakan isi ukuran desain yang diinginkan."
+
+fokusError(
+"cfUkuran"
 );
+
 return;
+
 }
 
 if(!data.fileUpload){
-showPopup(
-"⚠️",
-"Metode Pengiriman Belum Dipilih",
-"Pilih terlebih dahulu metode pengiriman file yang ingin digunakan."
-);
+
+document.getElementById("cardCanva")
+.style.borderColor = "#ef4444";
+
+document.getElementById("cardWhatsapp")
+.style.borderColor = "#ef4444";
+
+document.querySelector(
+"#cardCanva"
+).scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+setTimeout(()=>{
+
+document.getElementById("cardCanva")
+.style.borderColor = "#e5e7eb";
+
+document.getElementById("cardWhatsapp")
+.style.borderColor = "#e5e7eb";
+
+},3000);
+
 return;
+
 }
 
 if(
@@ -3831,21 +3873,23 @@ data.fileUpload === "CANVA"
 &&
 !data.linkCanva
 ){
-showPopup(
-"⚠️",
-"Link Canva Belum Diisi",
-"Silakan masukkan link Canva terlebih dahulu sebelum mengirim form."
+
+fokusError(
+"cfLinkCanva"
 );
+
 return;
+
 }
 
 if(!data.noWa){
-showPopup(
-"⚠️",
-"Nomor WhatsApp Kosong",
-"Silakan masukkan nomor WhatsApp yang dapat dihubungi."
+
+fokusError(
+"cfNoWa"
 );
+
 return;
+
 }
 
 const wa =
@@ -4118,6 +4162,32 @@ input.dataset.raw =
 input.dataset.raw =
 angka;
 }
+
+}
+
+function fokusError(id){
+
+const el =
+document.getElementById(id);
+
+if(!el) return;
+
+el.style.borderColor =
+"#ef4444";
+
+el.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+setTimeout(()=>{
+el.focus();
+},300);
+
+setTimeout(()=>{
+el.style.borderColor =
+"#e5e7eb";
+},3000);
 
 }
 
