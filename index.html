@@ -2180,7 +2180,7 @@ simpanMateriPopup();
 
 }
 
-async function testKirimForm(){
+function testKirimForm(){
 
 const data = {
 
@@ -2333,6 +2333,9 @@ showPopup(
 return;
 }
 
+showReviewFormDesain(data);
+return;
+
 try{
 
 showLoading(
@@ -2413,6 +2416,297 @@ showPopup(
 setTimeout(()=>{
 location.reload();
 },3000);
+
+}
+
+}
+
+function showReviewFormDesain(data){
+
+document.body.insertAdjacentHTML(
+"beforeend",
+`
+<div
+id="popupReviewForm"
+class="popup-overlay">
+
+<div
+class="popup-box"
+style="
+max-width:800px;
+width:95%;
+text-align:left;
+">
+
+<div style="
+font-size:24px;
+font-weight:800;
+color:#dc2626;
+text-align:center;
+margin-bottom:10px;
+">
+
+⚠️ SILAHKAN CEK KEMBALI SEBELUM FORM DIKIRIM!
+
+</div>
+
+<div style="
+text-align:center;
+font-size:14px;
+color:#6b7280;
+line-height:1.6;
+margin-bottom:20px;
+">
+
+Pastikan semuanya sudah sesuai
+untuk meminimalisir revisi dan
+proses desain sampai fix akan
+lebih cepat.
+
+</div>
+
+<div style="
+max-height:60vh;
+overflow:auto;
+line-height:1.8;
+white-space:pre-line;
+">
+
+<b>JENIS CETAK :</b><br>
+${data.jenisCetak}
+
+<br><br>
+
+<b>UKURAN :</b><br>
+${data.ukuran}
+
+<br><br>
+
+<b>WARNA :</b><br>
+${data.warnaKonsep}
+
+<br><br>
+
+<b>JUDUL / BRAND :</b><br>
+${data.judulBrand}
+
+<br><br>
+
+<b>ISI MATERI DESAIN :</b><br>
+${data.isiMateri}
+
+<br><br>
+
+<b>OPSI GAMBAR :</b><br>
+${data.opsiGambar}
+
+<br><br>
+
+<b>CATATAN :</b><br>
+${data.catatan || "-"}
+
+<br><br>
+
+<b>NO WHATSAPP :</b><br>
+${data.noWa}
+
+</div>
+
+<button
+onclick="tutupReviewForm()"
+style="
+background:#6b7280;
+margin-top:20px;
+">
+
+✏️ EDIT LAGI
+
+</button>
+
+<button
+onclick="kirimFormDesainFinal()"
+style="
+background:#16a34a;
+margin-top:10px;
+">
+
+✅ KONFIRMASI & KIRIM
+
+</button>
+
+</div>
+
+</div>
+`
+);
+
+}
+
+function tutupReviewForm(){
+
+document.getElementById(
+"popupReviewForm"
+)?.remove();
+
+}
+
+async function kirimFormDesainFinal(){
+
+document.getElementById(
+"popupReviewForm"
+)?.remove();
+
+const data = {
+
+action:
+"simpanFormDesain",
+
+rowIndex:
+window.rowAktif || "",
+
+username:
+window.usernameAktif || "",
+
+noPesanan:
+window.noPesananAktif || "",
+
+sku:
+window.skuAktif || "",
+
+jenisCetak:
+
+document.getElementById(
+"jenisCetak"
+).value === "LAINNYA"
+
+?
+
+document.getElementById(
+"jenisCetakLainnya"
+).value
+
+:
+
+document.getElementById(
+"jenisCetak"
+).value,
+
+ukuran:
+document.getElementById(
+"ukuran"
+).value,
+
+judulBrand:
+document.getElementById(
+"judulBrand"
+).value,
+
+warnaKonsep:
+
+document.getElementById(
+"warnaKonsep"
+).value === "LAINNYA"
+
+?
+
+document.getElementById(
+"warnaLainnya"
+).value
+
+:
+
+document.getElementById(
+"warnaKonsep"
+).value,
+
+isiMateri:
+document.getElementById(
+"isiMateri"
+).value,
+
+opsiGambar:
+document.getElementById(
+"opsiGambar"
+).value,
+
+catatan:
+document.getElementById(
+"catatan"
+).value,
+
+noWa:
+document.getElementById(
+"noWa"
+).value
+
+};
+
+try{
+
+showLoading(
+"📤 Mengirim Form",
+"Mohon tunggu, data konsultasi sedang diproses sistem."
+);
+
+const formData =
+new URLSearchParams();
+
+for(const key in data){
+
+formData.append(
+key,
+data[key]
+);
+
+}
+
+const response =
+await fetch(
+"https://script.google.com/macros/s/AKfycbx9BhdfdgFip0HhQyJ0kM1ZMN5ZlB1cUWZs_pYrl9vCcmUkqvtdszKZebNhoD8jhOJq/exec",
+{
+method:"POST",
+body:formData
+}
+);
+
+const hasil =
+await response.json();
+
+hideLoading();
+
+if(hasil.success){
+
+showPopup(
+"✅",
+"Form Berhasil Dikirim",
+"ID : " +
+hasil.id +
+"<br><br>Terima kasih, data Anda sudah kami terima."
+);
+
+setTimeout(()=>{
+location.reload();
+},3000);
+
+}else{
+
+showPopup(
+"❌",
+"Gagal Menyimpan Data",
+"Silakan coba kembali atau hubungi WhatsApp kami."
+);
+
+}
+
+}catch(err){
+
+hideLoading();
+
+showPopup(
+"❌",
+"Terjadi Kesalahan",
+"Silakan coba kembali atau hubungi WhatsApp kami."
+);
 
 }
 
@@ -2902,6 +3196,9 @@ showPopup(
 );
 return;
 }
+
+showReviewFormDesain(data);
+return;
 
 try{
 
