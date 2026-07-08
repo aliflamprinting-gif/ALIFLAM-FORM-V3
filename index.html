@@ -1968,6 +1968,7 @@ box-sizing:border-box;
 <label>ISI MATERI</label>
 
 <button
+id="btnMateri"
 type="button"
 onclick="bukaPopupMateri()"
 style="
@@ -2245,6 +2246,9 @@ style="
 max-width:800px;
 width:95%;
 text-align:left;
+max-height:95vh;
+display:flex;
+flex-direction:column;
 ">
 
 <div class="popup-title">
@@ -2252,18 +2256,12 @@ text-align:left;
 </div>
 
 <div style="
-max-height:60vh;
+height:500px;
 overflow:auto;
 line-height:1.8;
 white-space:pre-line;
 color:#374151;
 ">
-
-Note penting :
-INI HANYA CONTOH, TIDAK SAMA PERSIS TIDAK MASALAH
-CUKUP ISIKAN MATERI YANG AKAN DICANTUMKAN DI DESAIN
-
-----------------------------------
 Bakso Pak Budi (JUDUL)
 Harga ramah, rasa nikmat (SLOGAN)
 
@@ -2272,13 +2270,16 @@ Tersedia :
 - Bakso Jumbo
 - Mie Ayam
 ----------------------------------
-
 *BISA PAKAI HARGA ATAU TIDAK
 *CANTUMKAN PROMO (JIKA ADA)
 
 NO WA : (Jika ingin dicantumkan)
 SOSMED : (Jika ingin dicantumkan)
 ALAMAT : (Jika ingin dicantumkan)
+----------------------------------
+Note penting :
+INI HANYA CONTOH, TIDAK SAMA PERSIS TIDAK MASALAH
+CUKUP ISIKAN MATERI YANG AKAN DICANTUMKAN DI DESAIN
 </div>
 
 <button
@@ -2335,6 +2336,18 @@ statusMateri.innerHTML =
 jumlahKarakter +
 " karakter)";
 
+const btnMateri =
+document.getElementById(
+"btnMateri"
+);
+
+if(btnMateri){
+
+btnMateri.innerHTML =
+"📝 KLIK UNTUK LIHAT / EDIT MATERI";
+
+}
+
 statusMateri.style.background =
 "#eff6ff";
 
@@ -2348,6 +2361,18 @@ statusMateri.style.color =
 
 statusMateri.innerHTML =
 "⚠️ Belum ada materi diisi";
+
+const btnMateri =
+document.getElementById(
+"btnMateri"
+);
+
+if(btnMateri){
+
+btnMateri.innerHTML =
+"📝 KLIK UNTUK TULIS MATERI";
+
+}
 
 statusMateri.style.background =
 "#fef2f2";
@@ -2590,9 +2615,34 @@ return;
 
 if(!data.ukuran){
 
+if(
+document.getElementById("jenisCetak")?.value ===
+"BANNER / SPANDUK"
+){
+
+fokusError(
+"ukuranLebar"
+);
+
+document.getElementById(
+"ukuranTinggi"
+).style.borderColor = "#ef4444";
+
+setTimeout(()=>{
+
+document.getElementById(
+"ukuranTinggi"
+).style.borderColor = "#e5e7eb";
+
+},3000);
+
+}else{
+
 fokusError(
 "ukuran"
 );
+
+}
 
 return;
 
@@ -2623,23 +2673,29 @@ return;
 
 if(!data.isiMateri){
 
-const box =
-document.getElementById(
-"statusMateri"
+const btn =
+document.querySelector(
+'button[onclick="bukaPopupMateri()"]'
 );
 
-box.style.border =
+if(btn){
+
+btn.style.border =
 "3px solid #ef4444";
 
-box.scrollIntoView({
+btn.scrollIntoView({
 behavior:"smooth",
 block:"center"
 });
 
 setTimeout(()=>{
-box.style.border =
-"2px solid #fecaca";
+
+btn.style.border =
+"2px solid #dbeafe";
+
 },3000);
+
+}
 
 return;
 
@@ -3870,9 +3926,34 @@ return;
 
 if(!data.ukuran){
 
+if(
+document.getElementById("cfJenisCetak")?.value ===
+"BANNER / SPANDUK"
+){
+
+fokusError(
+"cfUkuranLebar"
+);
+
+document.getElementById(
+"cfUkuranTinggi"
+).style.borderColor = "#ef4444";
+
+setTimeout(()=>{
+
+document.getElementById(
+"cfUkuranTinggi"
+).style.borderColor = "#e5e7eb";
+
+},3000);
+
+}else{
+
 fokusError(
 "cfUkuran"
 );
+
+}
 
 return;
 
