@@ -4090,37 +4090,17 @@ function formatNomorWa(input){
 let angka =
 input.value.replace(/\D/g,'');
 
-if(
-angka.startsWith('0')
-){
-angka =
-'62' + angka.substring(1);
-}
-
-if(
-angka.startsWith('620')
-){
-angka =
-'62' + angka.substring(3);
-}
-
-const tampilan =
+let tampilan =
 angka.replace(
-/(\d{0,2})(\d{0,4})(\d{0,4})(\d{0,5})/,
-function(
-m,
-a,
-b,
-c,
-d
-){
+/(\d{0,4})(\d{0,4})(\d{0,4})(\d{0,4})/,
+function(m,a,b,c,d){
 
-let hasil = '';
+let hasil='';
 
-if(a) hasil += a;
-if(b) hasil += '-' + b;
-if(c) hasil += '-' + c;
-if(d) hasil += '-' + d;
+if(a) hasil+=a;
+if(b) hasil+='-'+b;
+if(c) hasil+='-'+c;
+if(d) hasil+='-'+d;
 
 return hasil;
 
@@ -4129,7 +4109,15 @@ return hasil;
 
 input.value = tampilan;
 
-input.dataset.raw = angka;
+if(
+angka.startsWith('0')
+){
+input.dataset.raw =
+'62' + angka.substring(1);
+}else{
+input.dataset.raw =
+angka;
+}
 
 }
 
