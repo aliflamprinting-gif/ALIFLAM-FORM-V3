@@ -990,6 +990,7 @@ ukuran.value = "9 x 5,5 CM";
 break;
 
 default:
+ukuran.value = "";
 break;
 
 }
@@ -1163,28 +1164,126 @@ document.getElementById(
 "cfUkuran"
 );
 
-if(ukuran){
+const area =
+document.getElementById(
+"cfUkuranArea"
+);
+
+if(area){
+
+if(e.target.value === "BANNER / SPANDUK"){
+
+area.innerHTML = `
+
+<div style="
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+">
+
+<div>
+
+<label style="
+text-align:center;
+display:block;
+font-weight:700;
+color:#1e3a8a;
+">
+LEBAR KE SAMPING (CM)
+</label>
+
+<input
+id="cfUkuranLebar"
+type="number"
+placeholder="Contoh : 200"
+oninput="updateUkuranBannerCekFile()">
+
+</div>
+
+<div>
+
+<label style="
+text-align:center;
+display:block;
+font-weight:700;
+color:#1e3a8a;
+">
+PANJANG KE BAWAH (CM)
+</label>
+
+<input
+id="cfUkuranTinggi"
+type="number"
+placeholder="Contoh : 100"
+oninput="updateUkuranBannerCekFile()">
+
+</div>
+
+</div>
+
+<br><br>
+
+<label>HASIL UKURAN DESAIN</label>
+
+<input
+id="cfUkuran"
+type="text"
+readonly
+style="
+background:#eff6ff;
+font-weight:700;
+"
+placeholder="Otomatis muncul">
+
+`;
+
+}else{
+
+let ukuranDefault = "";
 
 switch(e.target.value){
 
 case "X-BANNER / ROLL BANNER":
-ukuran.value = "60x160 CM";
+ukuranDefault = "60x160 CM";
 break;
 
 case "STAND BANNER KAYU":
-ukuran.value = "53x90 CM";
+ukuranDefault = "53x90 CM";
 break;
 
 case "TAPLAK MEJA SPANDUK":
-ukuran.value = "120x120 CM";
+ukuranDefault = "120x120 CM";
 break;
 
 case "KARTU NAMA":
-ukuran.value = "9 x 5,5 CM";
+ukuranDefault = "9 x 5,5 CM";
 break;
 
 default:
+ukuranDefault = "";
 break;
+
+}
+
+area.innerHTML = `
+
+<label>UKURAN</label>
+
+<div style="
+font-size:12px;
+color:#6b7280;
+margin-bottom:8px;
+">
+Contoh : 100x50 CM, A5, 3x3 CM BULAT
+</div>
+
+<input
+id="cfUkuran"
+type="text"
+value="${ukuranDefault}"
+placeholder="Masukkan ukuran...">
+
+`;
 
 }
 
@@ -1247,6 +1346,50 @@ document.getElementById(
 const hasil =
 document.getElementById(
 "ukuran"
+);
+
+if(
+!lebar ||
+!tinggi ||
+!hasil
+){
+return;
+}
+
+if(
+lebar.value &&
+tinggi.value
+){
+
+hasil.value =
+lebar.value +
+"x" +
+tinggi.value +
+" CM";
+
+}else{
+
+hasil.value = "";
+
+}
+
+}
+
+function updateUkuranBannerCekFile(){
+
+const lebar =
+document.getElementById(
+"cfUkuranLebar"
+);
+
+const tinggi =
+document.getElementById(
+"cfUkuranTinggi"
+);
+
+const hasil =
+document.getElementById(
+"cfUkuran"
 );
 
 if(
@@ -3049,6 +3192,8 @@ style="display:none;">
 
 <br><br>
 
+<div id="cfUkuranArea">
+
 <label>UKURAN</label>
 
 <div style="
@@ -3063,6 +3208,8 @@ Contoh : 100x50 CM, A5, 3x3 CM BULAT
 id="cfUkuran"
 type="text"
 placeholder="Masukkan ukuran...">
+
+</div>
 
 <br><br>
 
