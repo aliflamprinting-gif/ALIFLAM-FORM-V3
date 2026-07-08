@@ -1653,26 +1653,40 @@ box-sizing:border-box;
 
 <label>ISI MATERI</label>
 
+<button
+type="button"
+onclick="bukaPopupMateri()"
+style="
+margin-top:0;
+background:#ffffff;
+color:#111827;
+border:2px solid #dbeafe;
+">
+
+📝 TULIS ISI MATERI DESAIN
+
+</button>
+
+<div
+id="statusMateri"
+style="
+margin-top:10px;
+padding:12px;
+background:#eff6ff;
+border-radius:12px;
+font-size:14px;
+font-weight:700;
+color:#1d4ed8;
+text-align:center;
+">
+
+Belum ada materi diisi
+
+</div>
+
 <textarea
 id="isiMateri"
-placeholder="Contoh :
-
-Bakso Pak Budi
-
-Melayani :
-- Bakso Urat
-- Bakso Jumbo
-- Mie Ayam
-
-NO WA jika mau dicantumkan
-SOSMED jika mau dicantumkan
-ALAMAT jika mau dicnatumkan"
-style="
-width:100%;
-height:180px;
-padding:12px;
-box-sizing:border-box;
-"></textarea>
+style="display:none;"></textarea>
 
 <br><br>
 
@@ -1754,7 +1768,115 @@ KIRIM FORM DESAIN
 
 }
 
+function bukaPopupMateri(){
 
+const isiAwal =
+document.getElementById(
+"isiMateri"
+).value || "";
+
+document.body.insertAdjacentHTML(
+"beforeend",
+`
+<div
+id="popupMateri"
+class="popup-overlay">
+
+<div
+class="popup-box"
+style="
+max-width:800px;
+width:95%;
+">
+
+<div class="popup-title">
+📝 ISI MATERI DESAIN
+</div>
+
+<textarea
+id="popupIsiMateri"
+style="
+width:100%;
+height:350px;
+padding:15px;
+margin-top:15px;
+"
+placeholder="Contoh :
+
+Bakso Pak Budi
+
+Melayani :
+- Bakso Urat
+- Bakso Jumbo
+- Mie Ayam
+
+NO WA :
+SOSMED :
+ALAMAT :
+">${isiAwal}</textarea>
+
+<button
+onclick="simpanMateriPopup()">
+
+SIMPAN MATERI
+
+</button>
+
+<button
+onclick="tutupPopupMateri()"
+style="
+background:#ef4444;
+margin-top:10px;
+">
+
+BATAL
+
+</button>
+
+</div>
+
+</div>
+`
+);
+
+}
+
+function simpanMateriPopup(){
+
+const isi =
+document.getElementById(
+"popupIsiMateri"
+).value;
+
+document.getElementById(
+"isiMateri"
+).value = isi;
+
+const jumlahKarakter =
+isi.length;
+
+document.getElementById(
+"statusMateri"
+).innerHTML =
+jumlahKarakter > 0
+?
+"✅ Materi sudah diisi (" +
+jumlahKarakter +
+" karakter)"
+:
+"Belum ada materi diisi";
+
+tutupPopupMateri();
+
+}
+
+function tutupPopupMateri(){
+
+document.getElementById(
+"popupMateri"
+)?.remove();
+
+}
 
 async function testKirimForm(){
 
