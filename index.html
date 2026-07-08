@@ -1672,15 +1672,16 @@ id="statusMateri"
 style="
 margin-top:10px;
 padding:12px;
-background:#eff6ff;
+background:#fef2f2;
+border:2px solid #fecaca;
 border-radius:12px;
 font-size:14px;
 font-weight:700;
-color:#1d4ed8;
+color:#dc2626;
 text-align:center;
 ">
 
-Belum ada materi diisi
+⚠️ Belum ada materi diisi
 
 </div>
 
@@ -1879,7 +1880,7 @@ text-align:left;
 ">
 
 <div class="popup-title">
-📖 CONTOH PENGISIAN MATERI
+📖 CONTOH ISI MATERI
 </div>
 
 <div style="
@@ -1951,16 +1952,42 @@ window.materiAwal = isi;
 const jumlahKarakter =
 isi.length;
 
+const statusMateri =
 document.getElementById(
 "statusMateri"
-).innerHTML =
-jumlahKarakter > 0
-?
+);
+
+if(jumlahKarakter > 0){
+
+statusMateri.innerHTML =
 "✅ Materi sudah diisi (" +
 jumlahKarakter +
-" karakter)"
-:
-"Belum ada materi diisi";
+" karakter)";
+
+statusMateri.style.background =
+"#eff6ff";
+
+statusMateri.style.border =
+"none";
+
+statusMateri.style.color =
+"#1d4ed8";
+
+}else{
+
+statusMateri.innerHTML =
+"⚠️ Belum ada materi diisi";
+
+statusMateri.style.background =
+"#fef2f2";
+
+statusMateri.style.border =
+"2px solid #fecaca";
+
+statusMateri.style.color =
+"#dc2626";
+
+}
 
 document.getElementById(
 "popupKonfirmasiMateri"
