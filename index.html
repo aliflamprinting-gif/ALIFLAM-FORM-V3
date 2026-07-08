@@ -2006,6 +2006,10 @@ style="display:none;"></textarea>
 
 <br><br>
 
+<div
+id="areaLanjutanDesain"
+style="display:none;">
+
 <label>OPSI GAMBAR</label>
 
 <select
@@ -2089,6 +2093,8 @@ onclick="testKirimForm()">
 KIRIM FORM DESAIN
 
 </button>
+
+</div>
 
 </div>
 
@@ -2335,6 +2341,21 @@ statusMateri.innerHTML =
 "✅ Materi sudah diisi (" +
 jumlahKarakter +
 " karakter)";
+
+const areaLanjutan =
+document.getElementById(
+"areaLanjutanDesain"
+);
+
+if(
+areaLanjutan &&
+areaLanjutan.style.display === "none"
+){
+
+areaLanjutan.style.display =
+"block";
+
+}
 
 const btnMateri =
 document.getElementById(
@@ -3673,6 +3694,10 @@ placeholder="Tempel Link Canva Disini">
 
 </div>
 
+<div
+id="areaLanjutanCekFile"
+style="display:none;">
+
 <label>CATATAN (JIKA ADA)</label>
 
 <div style="
@@ -3729,6 +3754,8 @@ KIRIM FORM CEK FILE
 
 </div>
 
+</div>
+
 `;
 
 }
@@ -3760,6 +3787,21 @@ cardCanva.style.background =
 
 cardWhatsapp.style.background =
 "#ffffff";
+
+const areaLanjutan =
+document.getElementById(
+"areaLanjutanCekFile"
+);
+
+if(
+areaLanjutan &&
+areaLanjutan.style.display === "none"
+){
+
+areaLanjutan.style.display =
+"block";
+
+}
 
 if(mode === "CANVA"){
 
