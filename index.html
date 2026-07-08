@@ -1964,9 +1964,100 @@ tutupPopupMateri();
 
 function tutupPopupMateri(){
 
+const isi =
+document.getElementById(
+"popupIsiMateri"
+)?.value || "";
+
+if(isi.trim()){
+
+showKonfirmasiTutupMateri();
+
+return;
+
+}
+
 document.getElementById(
 "popupMateri"
 )?.remove();
+
+}
+
+function showKonfirmasiTutupMateri(){
+
+document.body.insertAdjacentHTML(
+"beforeend",
+`
+<div
+id="popupKonfirmasiMateri"
+class="popup-overlay">
+
+<div
+class="popup-box">
+
+<div class="popup-icon">
+⚠️
+</div>
+
+<div class="popup-title">
+PERUBAHAN BELUM DISIMPAN
+</div>
+
+<div class="popup-message">
+
+Materi yang sudah ditulis
+akan hilang jika popup ditutup.
+
+</div>
+
+<button
+onclick="paksaTutupMateri()"
+style="
+background:#ef4444;
+">
+
+YA, TUTUP
+
+</button>
+
+<button
+onclick="simpanDuluMateri()"
+style="
+margin-top:10px;
+background:#16a34a;
+">
+
+SIMPAN DULU
+
+</button>
+
+</div>
+
+</div>
+`
+);
+
+}
+
+function paksaTutupMateri(){
+
+document.getElementById(
+"popupKonfirmasiMateri"
+)?.remove();
+
+document.getElementById(
+"popupMateri"
+)?.remove();
+
+}
+
+function simpanDuluMateri(){
+
+document.getElementById(
+"popupKonfirmasiMateri"
+)?.remove();
+
+simpanMateriPopup();
 
 }
 
