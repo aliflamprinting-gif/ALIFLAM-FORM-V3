@@ -1820,38 +1820,44 @@ justify-content:center;
 📝 ISI MATERI DESAIN
 </div>
 
+<div style="
+background:#eff6ff;
+padding:12px;
+border-radius:12px;
+margin-top:15px;
+margin-bottom:15px;
+font-size:14px;
+line-height:1.6;
+color:#1e3a8a;
+">
+
+📌 Isi tulisan yang ingin dimasukkan ke desain.
+
+</div>
+
+<button
+type="button"
+onclick="lihatContohMateri()"
+style="
+margin-top:0;
+margin-bottom:15px;
+background:#facc15;
+color:#111827;
+">
+
+📖 LIHAT CONTOH PENGISIAN
+
+</button>
+
 <textarea
 id="popupIsiMateri"
 style="
 width:100%;
 height:500px;
 padding:15px;
-margin-top:15px;
+margin-top:0;
 "
-placeholder="Note penting :
-INI HANYA CONTOH, TIDAK SAMA PERSIS TIDAK MASALAH
-CUKUP ISIKAN MATERI YANG AKAN DICANTUMKAN DI DESAIN
-
-CONTOH PENGISIAN MATERI :
-
-----------------------------------
-Bakso Pak Budi (JUDUL)
-Harga ramah, rasa nikmat (SLOGAN)
-
-Tersedia :
-- Bakso Urat
-- Bakso Jumbo
-- Mie Ayam
-
-----------------------------------
-
-*BISA PAKAI HARGA ATAU TIDAK
-*CANTUMKAN PROMO (JIKA ADA)
-
-NO WA : (Jika ingin dicantumkan)
-SOSMED : (Jika ingin dicantumkan)
-ALAMAT : (Jika ingin dicantumkan)
-">${isiAwal}</textarea>
+placeholder="Masukkan materi desain disini...">${isiAwal}</textarea>
 
 <button
 onclick="simpanMateriPopup()">
@@ -1865,6 +1871,92 @@ SIMPAN MATERI
 </div>
 `
 );
+
+}
+
+function lihatContohMateri(){
+
+document.body.insertAdjacentHTML(
+"beforeend",
+`
+<div
+id="popupContohMateri"
+class="popup-overlay">
+
+<div
+class="popup-box"
+style="
+max-width:800px;
+width:95%;
+text-align:left;
+">
+
+<div class="popup-title">
+📖 CONTOH PENGISIAN MATERI
+</div>
+
+<div style="
+max-height:60vh;
+overflow:auto;
+line-height:1.8;
+white-space:pre-line;
+color:#374151;
+">
+
+Note penting :
+
+INI HANYA CONTOH, TIDAK SAMA PERSIS TIDAK MASALAH
+
+CUKUP ISIKAN MATERI YANG AKAN DICANTUMKAN DI DESAIN
+
+
+CONTOH PENGISIAN MATERI :
+
+----------------------------------
+
+Bakso Pak Budi (JUDUL)
+
+Harga ramah, rasa nikmat (SLOGAN)
+
+Tersedia :
+- Bakso Urat
+- Bakso Jumbo
+- Mie Ayam
+
+----------------------------------
+
+*BISA PAKAI HARGA ATAU TIDAK
+
+*CANTUMKAN PROMO (JIKA ADA)
+
+NO WA : (Jika ingin dicantumkan)
+
+SOSMED : (Jika ingin dicantumkan)
+
+ALAMAT : (Jika ingin dicantumkan)
+
+</div>
+
+<button
+onclick="tutupContohMateri()">
+
+TUTUP CONTOH
+
+</button>
+
+</div>
+
+</div>
+`
+);
+
+}
+
+function tutupContohMateri(){
+
+document.getElementById(
+"popupContohMateri"
+)?.remove();
 
 }
 
