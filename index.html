@@ -1775,6 +1775,8 @@ document.getElementById(
 "isiMateri"
 ).value || "";
 
+window.materiAwal = isiAwal;
+
 document.body.insertAdjacentHTML(
 "beforeend",
 `
@@ -1964,12 +1966,15 @@ tutupPopupMateri();
 
 function tutupPopupMateri(){
 
-const isi =
+const isiSekarang =
 document.getElementById(
 "popupIsiMateri"
 )?.value || "";
 
-if(isi.trim()){
+if(
+isiSekarang !==
+(window.materiAwal || "")
+){
 
 showKonfirmasiTutupMateri();
 
@@ -2005,8 +2010,10 @@ PERUBAHAN BELUM DISIMPAN
 
 <div class="popup-message">
 
-Materi yang sudah ditulis
-akan hilang jika popup ditutup.
+Perubahan yang sudah dibuat
+belum disimpan.
+
+Yakin ingin menutup popup?
 
 </div>
 
@@ -2024,7 +2031,11 @@ YA, TUTUP
 onclick="simpanDuluMateri()"
 style="
 margin-top:10px;
-background:#16a34a;
+background:linear-gradient(
+135deg,
+#2563eb,
+#1d4ed8
+);
 ">
 
 SIMPAN DULU
