@@ -1290,6 +1290,9 @@ id="popupSku">
 class="popup-box"
 style="
 max-width:500px;
+max-height:85vh;
+display:flex;
+flex-direction:column;
 ">
 
 <div class="popup-icon">
@@ -1303,6 +1306,13 @@ Pilih Produk
 <div class="popup-message">
 Silakan pilih produk yang ingin dikonsultasikan.
 </div>
+
+<div style="
+max-height:40vh;
+overflow-y:auto;
+padding-right:4px;
+">
+
 `;
 
 items.forEach((item,index)=>{
@@ -1355,6 +1365,8 @@ Qty : ${item.qty}
 });
 
 html += `
+
+</div>
 
 <div style="
 margin-top:15px;
