@@ -1946,6 +1946,8 @@ document.getElementById(
 "isiMateri"
 ).value = isi;
 
+window.materiAwal = isi;
+
 const jumlahKarakter =
 isi.length;
 
@@ -1960,7 +1962,13 @@ jumlahKarakter +
 :
 "Belum ada materi diisi";
 
-tutupPopupMateri();
+document.getElementById(
+"popupKonfirmasiMateri"
+)?.remove();
+
+document.getElementById(
+"popupMateri"
+)?.remove();
 
 }
 
