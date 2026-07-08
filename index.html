@@ -2074,8 +2074,11 @@ Yang bisa dihubungi, penting untuk konsultasi selanjutnya.
 
 <input
 id="noWa"
-type="text"
-placeholder="Masukan nomor...">
+type="tel"
+inputmode="numeric"
+pattern="[0-9]*"
+placeholder="Masukan nomor..."
+oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
 <br><br>
 
@@ -3605,8 +3608,11 @@ Yang bisa dihubungi, penting untuk konsultasi selanjutnya.
 
 <input
 id="cfNoWa"
-type="text"
-placeholder="Masukan nomor...">
+type="tel"
+inputmode="numeric"
+pattern="[0-9]*"
+placeholder="Masukan nomor..."
+oninput="this.value=this.value.replace(/[^0-9]/g,'')">
 
 <br><br>
 
@@ -3952,7 +3958,17 @@ if(modeFile === "CANVA"){
 
 pesan =
 encodeURIComponent(
-`Hallo kak, saya username ${username} dengan nomor pesanan ${noPesanan} udah isi form dan sudah cantumkan link canva. Bantu dicek ya`
+`Hallo kak, saya
+
+USERNAME : ${username}
+NO PESANAN : ${noPesanan}
+
+Sudah isi form dan sudah cantumkan link canvanya.
+
+LINK CANVA :
+${document.getElementById("cfLinkCanva")?.value || ""}
+
+Bantu dicek yaa`
 );
 
 tombol =
@@ -3962,7 +3978,14 @@ tombol =
 
 pesan =
 encodeURIComponent(
-`Hallo kak, saya username ${username} dengan nomor pesanan ${noPesanan} mau kirim filenya. ini langsung saya kirim. Bantu dicek ya`
+`Hallo kak, saya
+
+USERNAME : ${username}
+NO PESANAN : ${noPesanan}
+
+sudah isi form dan mau kirim filenya, ini langsung saya kirim.
+
+Bantu cek ya`
 );
 
 tombol =
