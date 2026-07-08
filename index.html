@@ -2934,6 +2934,164 @@ document.getElementById(
 
 }
 
+function showReviewFormCekFile(data){
+
+document.body.insertAdjacentHTML(
+"beforeend",
+`
+<div
+id="popupReviewCekFile"
+class="popup-overlay">
+
+<div
+class="popup-box"
+style="
+max-width:700px;
+width:95%;
+text-align:left;
+max-height:95vh;
+display:flex;
+flex-direction:column;
+">
+
+<div style="
+font-size:24px;
+font-weight:800;
+color:#166534;
+text-align:center;
+margin-bottom:10px;
+">
+
+📁 SILAHKAN CEK KEMBALI SEBELUM FORM DIKIRIM!
+
+</div>
+
+<div style="
+max-height:50vh;
+overflow:auto;
+padding-right:4px;
+">
+
+<div style="
+font-size:14px;
+margin-bottom:20px;
+line-height:2;
+">
+
+<div>
+<b>JENIS CETAK</b> :
+<span style="font-weight:700;color:#2563eb;">
+${data.jenisCetak}
+</span>
+</div>
+
+<div>
+<b>UKURAN</b> :
+<span style="font-weight:700;color:#2563eb;">
+${data.ukuran}
+</span>
+</div>
+
+<div>
+<b>METODE PENGIRIMAN</b> :
+<span style="font-weight:700;color:#2563eb;">
+${data.fileUpload}
+</span>
+</div>
+
+<div>
+<b>NO WA</b> :
+<span style="font-weight:700;color:#2563eb;">
+${data.noWa}
+</span>
+</div>
+
+</div>
+
+${data.linkCanva ? `
+
+<div style="
+font-weight:700;
+margin-bottom:8px;
+color:#111827;
+">
+LINK CANVA
+</div>
+
+<div style="
+background:#f8fafc;
+border:1px solid #e5e7eb;
+padding:12px;
+border-radius:10px;
+margin-bottom:15px;
+word-break:break-all;
+">
+${data.linkCanva}
+</div>
+
+` : ""}
+
+<div style="
+font-weight:700;
+margin-bottom:8px;
+color:#111827;
+">
+CATATAN
+</div>
+
+<div style="
+background:#f8fafc;
+border:1px solid #e5e7eb;
+padding:12px;
+border-radius:10px;
+white-space:pre-wrap;
+">
+${(data.catatan || "").trim() || "-"}
+</div>
+
+</div>
+
+<div style="
+position:sticky;
+bottom:0;
+background:white;
+padding-top:10px;
+margin-top:10px;
+border-top:1px solid #e5e7eb;
+">
+
+<button
+onclick="document.getElementById('popupReviewCekFile').remove()"
+style="
+background:#6b7280;
+margin-top:0;
+">
+
+✏️ EDIT LAGI
+
+</button>
+
+<button
+onclick="kirimFormCekFileFinal()"
+style="
+background:#16a34a;
+margin-top:10px;
+">
+
+✅ KONFIRMASI & KIRIM
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+`
+);
+
+}
+
 async function kirimFormDesainFinal(){
 
 document.getElementById(
@@ -3071,6 +3229,110 @@ hasil.id +
 setTimeout(()=>{
 location.reload();
 },3000);
+
+}else{
+
+showPopup(
+"❌",
+"Gagal Menyimpan Data",
+"Silakan coba kembali atau hubungi WhatsApp kami."
+);
+
+}
+
+}catch(err){
+
+hideLoading();
+
+showPopup(
+"❌",
+"Terjadi Kesalahan",
+"Silakan coba kembali atau hubungi WhatsApp kami."
+);
+
+}
+
+}
+
+async function kirimFormCekFileFinal(){
+
+document.getElementById(
+"popupReviewCekFile"
+)?.remove();
+
+const modeFile =
+document.getElementById(
+"modeFileValue"
+).value;
+
+const data = {
+
+action:"simpanFormCekFile",
+rowIndex:window.rowAktif || "",
+username:window.usernameAktif || "",
+noPesanan:window.noPesananAktif || "",
+sku:window.skuAktif || "",
+
+jenisCetak:
+document.getElementById("cfJenisCetak").value === "LAINNYA"
+?
+document.getElementById("cfJenisCetakLainnya").value
+:
+document.getElementById("cfJenisCetak").value,
+
+ukuran:
+document.getElementById("cfUkuran").value,
+
+linkCanva:
+modeFile === "CANVA"
+?
+document.getElementById("cfLinkCanva").value
+:
+"",
+
+fileUpload:modeFile,
+
+catatan:
+document.getElementById("cfCatatan").value,
+
+noWa:
+document.getElementById("cfNoWa").value
+
+};
+
+try{
+
+showLoading(
+"📁 Mengirim Form",
+"Mohon tunggu, data pengecekan file sedang diproses sistem."
+);
+
+const formData =
+new URLSearchParams();
+
+for(const key in data){
+formData.append(key,data[key]);
+}
+
+const response =
+await fetch(
+"https://script.google.com/macros/s/AKfycbx9BhdfdgFip0HhQyJ0kM1ZMN5ZlB1cUWZs_pYrl9vCcmUkqvtdszKZebNhoD8jhOJq/exec",
+{
+method:"POST",
+body:formData
+}
+);
+
+const hasil =
+await response.json();
+
+hideLoading();
+
+if(hasil.success){
+
+showPopupSuksesCekFile(
+modeFile
+);
 
 }else{
 
@@ -3672,6 +3934,120 @@ location.reload();
 },3000);
 
 }
+
+}
+
+function showPopupSuksesCekFile(modeFile){
+
+const username =
+window.usernameAktif || "";
+
+const noPesanan =
+window.noPesananAktif || "";
+
+let pesan = "";
+let tombol = "";
+
+if(modeFile === "CANVA"){
+
+pesan =
+encodeURIComponent(
+`Hallo kak, saya username ${username} dengan nomor pesanan ${noPesanan} udah isi form dan sudah cantumkan link canva. Bantu dicek ya`
+);
+
+tombol =
+"KONFIRMASI KE WHATSAPP";
+
+}else{
+
+pesan =
+encodeURIComponent(
+`Hallo kak, saya username ${username} dengan nomor pesanan ${noPesanan} mau kirim filenya. ini langsung saya kirim. Bantu dicek ya`
+);
+
+tombol =
+"KIRIM KE WHATSAPP";
+
+}
+
+document.body.insertAdjacentHTML(
+"beforeend",
+`
+<div
+id="popupSuksesCekFile"
+class="popup-overlay">
+
+<div
+class="popup-box"
+style="
+max-width:550px;
+position:relative;
+">
+
+<button
+onclick="document.getElementById('popupSuksesCekFile').remove()"
+style="
+position:absolute;
+top:10px;
+right:10px;
+width:40px;
+height:40px;
+margin:0;
+padding:0;
+border:none;
+border-radius:50%;
+background:#ef4444;
+color:white;
+font-size:22px;
+font-weight:700;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+">
+
+✕
+
+</button>
+
+<div class="popup-icon">
+✅
+</div>
+
+<div class="popup-title">
+FORM BERHASIL DIKIRIM
+</div>
+
+<div class="popup-message">
+
+${
+modeFile === "CANVA"
+?
+`Terima kasih, data Anda sudah kami terima.<br><br>
+Silakan klik tombol dibawah untuk konfirmasi kepada admin bahwa link Canva sudah dicantumkan.`
+:
+`Terima kasih, data Anda sudah kami terima.<br><br>
+⚠️ Anda memilih metode KIRIM FILE WHATSAPP.<br><br>
+Klik tombol dibawah untuk melanjutkan pengiriman file desain kepada admin.`
+}
+
+</div>
+
+<button
+onclick="window.open('https://wa.me/6281617905237?text=${pesan}','_blank')"
+style="
+background:#16a34a;
+">
+
+${tombol}
+
+</button>
+
+</div>
+
+</div>
+`
+);
 
 }
 
