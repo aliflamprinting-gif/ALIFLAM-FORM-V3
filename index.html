@@ -1278,6 +1278,9 @@ hasil.value = "";
 
 function showSkuPopup(items){
 
+window.skuItemsPopup = items;
+window.skuDipilihIndex = null;
+
 let html = `
 <div
 class="popup-overlay"
@@ -1300,7 +1303,6 @@ Pilih Produk
 <div class="popup-message">
 Silakan pilih produk yang ingin dikonsultasikan.
 </div>
-
 `;
 
 items.forEach((item,index)=>{
@@ -1308,13 +1310,8 @@ items.forEach((item,index)=>{
 html += `
 
 <div
-onclick="
-pilihSkuPopup(
-'${item.rowIndex}',
-'${item.sku}',
-'${item.qty}'
-)
-"
+id="skuCard${index}"
+onclick="pilihSkuSementara(${index})"
 style="
 border:2px solid #e5e7eb;
 border-radius:14px;
@@ -1322,6 +1319,7 @@ padding:14px;
 margin-bottom:10px;
 cursor:pointer;
 transition:.2s;
+background:#ffffff;
 ">
 
 <div style="
@@ -1332,9 +1330,12 @@ margin-bottom:5px;
 PRODUK KE-${index+1}
 </div>
 
-<div style="
+<div
+id="skuText${index}"
+style="
 font-size:15px;
-font-weight:600;
+font-weight:700;
+color:#2563eb;
 ">
 ${item.sku}
 </div>
@@ -1354,13 +1355,106 @@ Qty : ${item.qty}
 });
 
 html += `
+
+<div style="
+margin-top:15px;
+padding:12px;
+background:#fffbeb;
+border:1px solid #fde68a;
+border-radius:12px;
+font-size:13px;
+line-height:1.6;
+color:#92400e;
+">
+
+💡 Jika bingung pilih yang mana,
+boleh konfirmasi dulu ke admin WhatsApp.
+
 </div>
+
+<button
+id="btnLanjutSku"
+onclick="lanjutkanSkuTerpilih()"
+disabled
+style="
+margin-top:15px;
+opacity:.5;
+cursor:not-allowed;
+">
+
+LANJUTKAN
+
+</button>
+
+</div>
+
 </div>
 `;
 
 document.body.insertAdjacentHTML(
 "beforeend",
 html
+);
+
+}
+
+function pilihSkuSementara(index){
+
+window.skuDipilihIndex = index;
+
+document.querySelectorAll(
+'[id^="skuCard"]'
+).forEach(card=>{
+
+card.style.borderColor = "#e5e7eb";
+card.style.background = "#ffffff";
+
+});
+
+const card =
+document.getElementById(
+"skuCard" + index
+);
+
+if(card){
+
+card.style.borderColor = "#2563eb";
+card.style.background = "#eff6ff";
+
+}
+
+const btn =
+document.getElementById(
+"btnLanjutSku"
+);
+
+if(btn){
+
+btn.disabled = false;
+btn.style.opacity = "1";
+btn.style.cursor = "pointer";
+
+}
+
+}
+
+function lanjutkanSkuTerpilih(){
+
+if(
+window.skuDipilihIndex === null
+){
+return;
+}
+
+const item =
+window.skuItemsPopup[
+window.skuDipilihIndex
+];
+
+pilihSkuPopup(
+item.rowIndex,
+item.sku,
+item.qty
 );
 
 }
