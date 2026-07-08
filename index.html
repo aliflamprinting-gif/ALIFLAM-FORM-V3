@@ -2436,7 +2436,9 @@ style="
 max-width:700px;
 width:95%;
 text-align:left;
-max-height:90vh;
+max-height:95vh;
+display:flex;
+flex-direction:column;
 ">
 
 <div style="
@@ -2467,8 +2469,9 @@ lebih cepat.
 </div>
 
 <div style="
-max-height:60vh;
+max-height:55vh;
 overflow:auto;
+padding-right:4px;
 ">
 
 <div style="
@@ -2545,7 +2548,7 @@ border-radius:10px;
 margin-bottom:15px;
 white-space:pre-wrap;
 ">
-${data.judulBrand || "-"}
+${(data.judulBrand || "").trim() || "-"}
 </div>
 
 <div style="
@@ -2564,7 +2567,7 @@ border-radius:10px;
 margin-bottom:15px;
 white-space:pre-wrap;
 ">
-${data.isiMateri}
+${(data.isiMateri || "").trim()}
 </div>
 
 <div style="
@@ -2582,10 +2585,19 @@ padding:12px;
 border-radius:10px;
 white-space:pre-wrap;
 ">
-${data.catatan || "-"}
+${(data.catatan || "").trim() || "-"}
 </div>
 
 </div>
+
+<div style="
+position:sticky;
+bottom:0;
+background:white;
+padding-top:10px;
+margin-top:10px;
+border-top:1px solid #e5e7eb;
+">
 
 <button
 onclick="tutupReviewForm()"
@@ -2608,6 +2620,8 @@ margin-top:10px;
 ✅ KONFIRMASI & KIRIM
 
 </button>
+
+</div>
 
 </div>
 
