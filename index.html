@@ -1845,10 +1845,17 @@ height:500px;
 padding:15px;
 margin-top:0;
 "
+oninput="cekTombolSimpanMateri()"
 placeholder="Masukkan materi desain disini...">${isiAwal}</textarea>
 
 <button
-onclick="simpanMateriPopup()">
+id="btnSimpanMateri"
+onclick="simpanMateriPopup()"
+disabled
+style="
+opacity:.5;
+cursor:not-allowed;
+">
 
 SIMPAN MATERI
 
@@ -1859,6 +1866,41 @@ SIMPAN MATERI
 </div>
 `
 );
+
+setTimeout(
+cekTombolSimpanMateri,
+50
+);
+
+}
+
+function cekTombolSimpanMateri(){
+
+const isi =
+document.getElementById(
+"popupIsiMateri"
+)?.value.trim();
+
+const btn =
+document.getElementById(
+"btnSimpanMateri"
+);
+
+if(!btn) return;
+
+if(isi){
+
+btn.disabled = false;
+btn.style.opacity = "1";
+btn.style.cursor = "pointer";
+
+}else{
+
+btn.disabled = true;
+btn.style.opacity = ".5";
+btn.style.cursor = "not-allowed";
+
+}
 
 }
 
@@ -1914,7 +1956,10 @@ ALAMAT : (Jika ingin dicantumkan)
 </div>
 
 <button
-onclick="tutupContohMateri()">
+onclick="tutupContohMateri()"
+style="
+background:#ef4444;
+">
 
 TUTUP CONTOH
 
