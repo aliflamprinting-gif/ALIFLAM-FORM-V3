@@ -4271,6 +4271,12 @@ function showPopupSuksesDesain(){
 const opsiGambar =
 document.getElementById("opsiGambar")?.value || "";
 
+const username =
+window.usernameAktif || "";
+
+const noPesanan =
+window.noPesananAktif || "";
+
 let pesan = "";
 
 if(
@@ -4282,6 +4288,12 @@ pesan =
 encodeURIComponent(
 
 `Hallo kak, saya SUDAH ISI FORM DESAIN
+
+USERNAME :
+${username}
+
+NO PESANAN :
+${noPesanan}
 
 JENIS CETAK :
 ${document.getElementById("jenisCetak")?.value || ""}
