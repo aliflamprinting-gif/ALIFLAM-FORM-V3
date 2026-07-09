@@ -3692,6 +3692,19 @@ id="cfLinkCanva"
 type="text"
 placeholder="Tempel Link Canva Disini">
 
+<button
+type="button"
+id="btnLanjutCanva"
+onclick="lanjutkanCanva()"
+style="
+background:#2563eb;
+margin-top:15px;
+">
+
+LANJUTKAN
+
+</button>
+
 </div>
 
 <div
@@ -3788,20 +3801,7 @@ cardCanva.style.background =
 cardWhatsapp.style.background =
 "#ffffff";
 
-const areaLanjutan =
-document.getElementById(
-"areaLanjutanCekFile"
-);
 
-if(
-areaLanjutan &&
-areaLanjutan.style.display === "none"
-){
-
-areaLanjutan.style.display =
-"block";
-
-}
 
 if(mode === "CANVA"){
 
@@ -3832,6 +3832,18 @@ cardWhatsapp.style.borderColor =
 cardWhatsapp.style.background =
 "#eff6ff";
 
+const areaLanjutan =
+document.getElementById(
+"areaLanjutanCekFile"
+);
+
+if(areaLanjutan){
+
+areaLanjutan.style.display =
+"block";
+
+}
+
 document.getElementById(
 "areaCanva"
 ).style.display =
@@ -3840,6 +3852,43 @@ document.getElementById(
 document.getElementById(
 "cfLinkCanva"
 ).value = "";
+
+}
+
+}
+
+function lanjutkanCanva(){
+
+const link =
+document.getElementById(
+"cfLinkCanva"
+);
+
+if(
+!link ||
+!link.value.trim()
+){
+
+fokusError(
+"cfLinkCanva"
+);
+
+return;
+
+}
+
+const areaLanjutan =
+document.getElementById(
+"areaLanjutanCekFile"
+);
+
+if(
+areaLanjutan &&
+areaLanjutan.style.display === "none"
+){
+
+areaLanjutan.style.display =
+"block";
 
 }
 
