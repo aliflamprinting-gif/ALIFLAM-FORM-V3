@@ -3877,6 +3877,27 @@ return;
 
 }
 
+const url =
+link.value.trim().toLowerCase();
+
+if(
+!url.includes("canva")
+){
+
+showPopup(
+"⚠️",
+"Link Canva Tidak Valid",
+"Silakan tempel link Canva yang benar sebelum melanjutkan."
+);
+
+fokusError(
+"cfLinkCanva"
+);
+
+return;
+
+}
+
 const areaLanjutan =
 document.getElementById(
 "areaLanjutanCekFile"
@@ -3891,6 +3912,10 @@ areaLanjutan.style.display =
 "block";
 
 }
+
+document.getElementById(
+"btnLanjutCanva"
+)?.remove();
 
 }
 
