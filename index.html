@@ -1234,43 +1234,6 @@ placeholder="Masukkan ukuran...">
 
 }
 
-if(
-e.target.name ===
-"modeFile"
-){
-
-const area =
-document.getElementById(
-"areaCanva"
-);
-
-if(area){
-
-if(
-e.target.value === "CANVA"
-){
-
-area.style.display =
-"block";
-
-setTimeout(()=>{
-
-document.getElementById(
-"cfLinkCanva"
-)?.focus();
-
-},100);
-
-}else{
-
-area.style.display =
-"none";
-
-}
-
-}
-
-}
 
 });
 
@@ -3292,17 +3255,7 @@ hideLoading();
 
 if(hasil.success){
 
-showPopup(
-"✅",
-"Form Berhasil Dikirim",
-"ID : " +
-hasil.id +
-"<br><br>Terima kasih, data Anda sudah kami terima."
-);
-
-setTimeout(()=>{
-location.reload();
-},3000);
+showPopupSuksesDesain();
 
 }else{
 
@@ -4302,6 +4255,161 @@ background:#16a34a;
 ">
 
 ${tombol}
+
+</button>
+
+</div>
+
+</div>
+`
+);
+
+}
+
+function showPopupSuksesDesain(){
+
+const opsiGambar =
+document.getElementById("opsiGambar")?.value || "";
+
+let pesan = "";
+
+if(
+opsiGambar ===
+"Saya akan kirim ke WhatsApp"
+){
+
+pesan =
+encodeURIComponent(
+
+`Hallo kak, saya SUDAH ISI FORM DESAIN
+
+JENIS CETAK :
+${document.getElementById("jenisCetak")?.value || ""}
+
+UKURAN :
+${document.getElementById("ukuran")?.value || ""}
+
+WARNA :
+${document.getElementById("warnaKonsep")?.value || ""}
+
+OPSI GAMBAR :
+${opsiGambar}
+
+ISI MATERI DESAIN :
+${document.getElementById("isiMateri")?.value || ""}
+
+CATATAN :
+${document.getElementById("catatan")?.value || "-"}
+
+Selanjutnya saya akan kirim foto/gambar yg akan dicantumkan.
+
+Bantu proses desainnya setelah saya kirim foto/gambarnya ya`
+);
+
+}else{
+
+pesan =
+encodeURIComponent(
+
+`Hallo kak, saya SUDAH ISI FORM DESAIN
+
+JENIS CETAK :
+${document.getElementById("jenisCetak")?.value || ""}
+
+UKURAN :
+${document.getElementById("ukuran")?.value || ""}
+
+WARNA :
+${document.getElementById("warnaKonsep")?.value || ""}
+
+OPSI GAMBAR :
+${opsiGambar}
+
+ISI MATERI DESAIN :
+${document.getElementById("isiMateri")?.value || ""}
+
+CATATAN :
+${document.getElementById("catatan")?.value || "-"}
+
+Mohon diproses, saya tunggu hasilnya ya`
+);
+
+}
+
+document.body.insertAdjacentHTML(
+"beforeend",
+`
+<div
+id="popupSuksesDesain"
+class="popup-overlay">
+
+<div
+class="popup-box"
+style="
+max-width:550px;
+position:relative;
+">
+
+<button
+onclick="location.reload()"
+style="
+position:absolute;
+top:10px;
+right:10px;
+width:40px;
+height:40px;
+margin:0;
+padding:0;
+border:none;
+border-radius:50%;
+background:#ef4444;
+color:white;
+font-size:22px;
+font-weight:700;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+">
+
+✕
+
+</button>
+
+<div class="popup-icon">
+✅
+</div>
+
+<div class="popup-title">
+FORM BERHASIL DIKIRIM
+</div>
+
+<div class="popup-message">
+
+Terima kasih, data Anda sudah kami terima.
+
+<br><br>
+
+Silakan klik tombol dibawah untuk konfirmasi bahwa SUDAH ISI FORM.
+
+</div>
+
+<button
+onclick="
+window.open(
+'https://wa.me/6281617905237?text=${pesan}',
+'_blank'
+);
+
+setTimeout(()=>{
+location.reload();
+},500);
+"
+style="
+background:#16a34a;
+">
+
+KONFIRMASI SEKARANG
 
 </button>
 
