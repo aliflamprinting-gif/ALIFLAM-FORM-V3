@@ -4141,20 +4141,31 @@ if(modeFile === "CANVA"){
 
 pesan =
 encodeURIComponent(
-`Hallo kak, saya
+`Hallo kak, saya SUDAH ISI FORM CEK FILE
 
-USERNAME : ${username}
-NO PESANAN : ${noPesanan}
+USERNAME :
+${username}
+
+NO PESANAN :
+${noPesanan}
+
+JENIS CETAK :
+${document.getElementById("cfJenisCetak")?.value || ""}
 
 UKURAN :
 ${document.getElementById("cfUkuran")?.value || ""}
 
-Sudah isi form dan sudah cantumkan link canvanya.
+---------------------------------
 
 LINK CANVA :
 ${document.getElementById("cfLinkCanva")?.value || ""}
 
-Bantu dicek yaa`
+---------------------------------
+
+CATATAN :
+${document.getElementById("cfCatatan")?.value || "-"}
+
+Bantu dicek ya kak`
 );
 
 tombol =
@@ -4164,17 +4175,28 @@ tombol =
 
 pesan =
 encodeURIComponent(
-`Hallo kak, saya
+`Hallo kak, saya SUDAH ISI FORM CEK FILE
 
-USERNAME : ${username}
-NO PESANAN : ${noPesanan}
+USERNAME :
+${username}
+
+NO PESANAN :
+${noPesanan}
+
+JENIS CETAK :
+${document.getElementById("cfJenisCetak")?.value || ""}
 
 UKURAN :
 ${document.getElementById("cfUkuran")?.value || ""}
 
-sudah isi form dan mau kirim filenya, ini langsung saya kirim.
+---------------------------------
 
-Bantu cek ya`
+CATATAN :
+${document.getElementById("cfCatatan")?.value || "-"}
+
+mau kirim filenya, ini langsung saya kirim.
+
+Bantu dicek ya kak`
 );
 
 tombol =
