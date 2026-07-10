@@ -514,6 +514,10 @@ title,
 message
 ){
 
+document.getElementById(
+"popupOverlay"
+)?.remove();
+
 document.body.insertAdjacentHTML(
 "beforeend",
 `
@@ -690,13 +694,13 @@ if(!data.success){
 
 if(
 data.message ===
-"SEMUA_SUDAH_ISI"
+"SKU_SUDAH_DIISI"
 ){
 
 showPopup(
 "ℹ️",
-"Form Sudah Pernah Diisi",
-"Pesanan ini sudah pernah mengisi form. Jika ingin melakukan perubahan, silakan hubungi kami melalui WhatsApp."
+"Produk Sudah Pernah Diisi",
+"Produk yang dipilih sudah pernah mengisi form."
 );
 
 }else{
@@ -767,6 +771,12 @@ data.items[0].sku;
 window.rowAktif =
 data.items[0].rowIndex;
 
+window.statusDesainAktif =
+data.items[0].statusDesain;
+
+window.statusCekFileAktif =
+data.items[0].statusCekFile;
+
 html += `
 
 <div style="
@@ -802,7 +812,7 @@ PILIH LAYANAN :
 
 <div
 class="status-card"
-onclick="tampilkanFormDesain()">
+onclick="cekAksesFormDesain()">
 
 <div class="status-icon">
 🎨
@@ -820,7 +830,7 @@ Saya ingin dibantu membuat desain dari awal
 
 <div
 class="status-card"
-onclick="tampilkanFormCekFile()">
+onclick="cekAksesFormCekFile()">
 
 <div class="status-icon">
 📁
@@ -881,8 +891,15 @@ html;
 
 }catch(err){
 
-document.getElementById("hasil").innerHTML =
-"❌ Gagal menghubungi server";
+hideLoading();
+
+showPopup(
+"❌",
+"Gagal Menghubungi Server",
+"Silakan coba beberapa saat lagi."
+);
+
+document.getElementById("hasil").innerHTML = "";
 
 }
 
@@ -1550,9 +1567,21 @@ sku,
 qty
 ){
 
+const item =
+window.skuItemsPopup.find(
+x =>
+x.rowIndex === rowIndex
+);
+
 window.rowAktif = rowIndex;
 window.skuAktif = sku;
 window.qtyAktif = qty;
+
+window.statusDesainAktif =
+item?.statusDesain || false;
+
+window.statusCekFileAktif =
+item?.statusCekFile || false;
 
 document.getElementById(
 "popupSku"
@@ -1660,7 +1689,7 @@ PILIH LAYANAN
 
 <div
 class="status-card"
-onclick="tampilkanFormDesain()">
+onclick="cekAksesFormDesain()">
 
 <div class="status-icon">
 🎨
@@ -1678,7 +1707,7 @@ Saya ingin dibantu membuat desain dari awal
 
 <div
 class="status-card"
-onclick="tampilkanFormCekFile()">
+onclick="cekAksesFormCekFile()">
 
 <div class="status-icon">
 📁
@@ -1702,6 +1731,46 @@ style="margin-top:20px;">
 </div>
 
 `;
+
+}
+
+function cekAksesFormDesain(){
+
+if(
+window.statusDesainAktif
+){
+
+showPopup(
+"⚠️",
+"Form Desain Sudah Pernah Diisi",
+"Produk ini sudah pernah mengisi FORM DESAIN."
+);
+
+return;
+
+}
+
+tampilkanFormDesain();
+
+}
+
+function cekAksesFormCekFile(){
+
+if(
+window.statusCekFileAktif
+){
+
+showPopup(
+"⚠️",
+"Form Cek File Sudah Pernah Diisi",
+"Produk ini sudah pernah mengisi FORM CEK FILE."
+);
+
+return;
+
+}
+
+tampilkanFormCekFile();
 
 }
 
@@ -2737,6 +2806,8 @@ location.reload();
 
 }catch(err){
 
+window.sedangKirimCekFile = false;
+
 hideLoading();
 
 showPopup(
@@ -3131,6 +3202,12 @@ margin-top:10px;
 
 async function kirimFormDesainFinal(){
 
+if(window.sedangKirimDesain){
+return;
+}
+
+window.sedangKirimDesain = true;
+
 document.getElementById(
 "popupReviewForm"
 )?.remove();
@@ -3255,19 +3332,19 @@ hideLoading();
 
 if(hasil.success){
 
+window.sedangKirimDesain = false;
+
 showPopupSuksesDesain();
 
 }else{
 
-showPopup(
-"❌",
-"Gagal Menyimpan Data",
-"Silakan coba kembali atau hubungi WhatsApp kami."
-);
+window.sedangKirimDesain = false;
 
 }
 
 }catch(err){
+
+window.sedangKirimDesain = false;
 
 hideLoading();
 
@@ -3282,6 +3359,12 @@ showPopup(
 }
 
 async function kirimFormCekFileFinal(){
+
+if(window.sedangKirimCekFile){
+return;
+}
+
+window.sedangKirimCekFile = true;
 
 document.getElementById(
 "popupReviewCekFile"
@@ -3357,11 +3440,15 @@ hideLoading();
 
 if(hasil.success){
 
+window.sedangKirimCekFile = false;
+
 showPopupSuksesCekFile(
 modeFile
 );
 
 }else{
+
+window.sedangKirimCekFile = false;
 
 showPopup(
 "❌",
@@ -3372,6 +3459,8 @@ showPopup(
 }
 
 }catch(err){
+
+window.sedangKirimCekFile = false;
 
 hideLoading();
 
@@ -4109,6 +4198,8 @@ location.reload();
 }
 
 }catch(err){
+
+window.sedangKirimCekFile = false;
 
 hideLoading();
 
