@@ -794,8 +794,7 @@ border-radius:10px;
 font-weight:700;
 color:#111827;
 ">
-${data.items[0].sku}
-(${data.items[0].qty})
+${data.items[0].sku} (${data.items[0].qty} PCS)
 </div>
 
 <hr style="margin:20px 0;">
@@ -2529,7 +2528,7 @@ noPesanan:
 window.noPesananAktif || "",
 
 sku:
-window.skuAktif || "",
+window.skuAktif + " (" + window.qtyAktif + " PCS)",
 
 jenisCetak:
 
@@ -3235,7 +3234,7 @@ noPesanan:
 window.noPesananAktif || "",
 
 sku:
-window.skuAktif || "",
+window.skuAktif + " (" + window.qtyAktif + " PCS)",
 
 jenisCetak:
 
@@ -3389,7 +3388,7 @@ action:"simpanFormCekFile",
 rowIndex:window.rowAktif || "",
 username:window.usernameAktif || "",
 noPesanan:window.noPesananAktif || "",
-sku:window.skuAktif || "",
+sku:window.skuAktif + " (" + window.qtyAktif + " PCS)",
 
 jenisCetak:
 document.getElementById("cfJenisCetak").value === "LAINNYA"
@@ -3960,7 +3959,7 @@ noPesanan:
 window.noPesananAktif || "",
 
 sku:
-window.skuAktif || "",
+window.skuAktif + " (" + window.qtyAktif + " PCS)",
 
 jenisCetak:
 
@@ -4248,6 +4247,9 @@ ${username}
 NO PESANAN :
 ${noPesanan}
 
+SKU :
+${window.skuAktif} (${window.qtyAktif} PCS)
+
 JENIS CETAK :
 ${document.getElementById("cfJenisCetak")?.value || ""}
 
@@ -4281,6 +4283,9 @@ ${username}
 
 NO PESANAN :
 ${noPesanan}
+
+SKU :
+${window.skuAktif} (${window.qtyAktif} PCS)
 
 JENIS CETAK :
 ${document.getElementById("cfJenisCetak")?.value || ""}
@@ -4422,6 +4427,9 @@ ${username}
 NO PESANAN :
 ${noPesanan}
 
+SKU :
+${window.skuAktif} (${window.qtyAktif} PCS)
+
 JENIS CETAK :
 ${document.getElementById("jenisCetak")?.value || ""}
 
@@ -4464,6 +4472,9 @@ ${username}
 
 NO PESANAN :
 ${noPesanan}
+
+SKU :
+${window.skuAktif} (${window.qtyAktif} PCS)
 
 JENIS CETAK :
 ${document.getElementById("jenisCetak")?.value || ""}
