@@ -768,6 +768,9 @@ data.items.length === 1
 window.skuAktif =
 data.items[0].sku;
 
+window.qtyAktif =
+data.items[0].qty;
+
 window.rowAktif =
 data.items[0].rowIndex;
 
@@ -794,7 +797,9 @@ border-radius:10px;
 font-weight:700;
 color:#111827;
 ">
-${data.items[0].sku} (${data.items[0].qty} PCS)
+${data.items[0].sku}
+<br>
+<small>QTY : ${data.items[0].qty} PCS</small>
 </div>
 
 <hr style="margin:20px 0;">
@@ -2528,7 +2533,10 @@ noPesanan:
 window.noPesananAktif || "",
 
 sku:
-window.skuAktif + " (" + window.qtyAktif + " PCS)",
+window.skuAktif,
+
+qty:
+window.qtyAktif,
 
 jenisCetak:
 
@@ -2891,6 +2899,26 @@ line-height:2;
 ">
 
 <div>
+<b>SKU</b> :
+<span style="
+font-weight:700;
+color:#2563eb;
+">
+${data.sku}
+</span>
+</div>
+
+<div>
+<b>QTY</b> :
+<span style="
+font-weight:700;
+color:#2563eb;
+">
+${data.qty} PCS
+</span>
+</div>
+
+<div>
 <b>JENIS CETAK</b> :
 <span style="
 font-weight:700;
@@ -3094,6 +3122,26 @@ line-height:2;
 ">
 
 <div>
+<b>SKU</b> :
+<span style="
+font-weight:700;
+color:#2563eb;
+">
+${data.sku}
+</span>
+</div>
+
+<div>
+<b>QTY</b> :
+<span style="
+font-weight:700;
+color:#2563eb;
+">
+${data.qty} PCS
+</span>
+</div>
+
+<div>
 <b>JENIS CETAK</b> :
 <span style="font-weight:700;color:#2563eb;">
 ${data.jenisCetak}
@@ -3234,7 +3282,10 @@ noPesanan:
 window.noPesananAktif || "",
 
 sku:
-window.skuAktif + " (" + window.qtyAktif + " PCS)",
+window.skuAktif,
+
+qty:
+window.qtyAktif,
 
 jenisCetak:
 
@@ -3388,7 +3439,9 @@ action:"simpanFormCekFile",
 rowIndex:window.rowAktif || "",
 username:window.usernameAktif || "",
 noPesanan:window.noPesananAktif || "",
-sku:window.skuAktif + " (" + window.qtyAktif + " PCS)",
+sku:window.skuAktif,
+
+qty:window.qtyAktif,
 
 jenisCetak:
 document.getElementById("cfJenisCetak").value === "LAINNYA"
@@ -3959,7 +4012,10 @@ noPesanan:
 window.noPesananAktif || "",
 
 sku:
-window.skuAktif + " (" + window.qtyAktif + " PCS)",
+window.skuAktif,
+
+qty:
+window.qtyAktif,
 
 jenisCetak:
 
